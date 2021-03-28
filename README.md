@@ -1,5 +1,9 @@
 # NodeCG - Ultime Decathlon Personnal stream tool.
 
+<p align="center">
+  <img src="https://github.com/jocelyndubois/ncg-ud-stream/blob/main/media/UD%20Tool.png?raw=true">
+</p>
+
 L'Ultime Décathlon est une compétition de speedrun saisonnière ou le but est d'apprendre et maitriser 10 speedruns.
 
 Le site de l'evenement se trouve ici : https://www.ultimedecathlon.com/
