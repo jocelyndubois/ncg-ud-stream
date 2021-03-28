@@ -1,0 +1,44 @@
+@import "players.css";
+
+html,body {
+	width: 982px;
+	height: 754px;
+}
+
+#gameFrame {
+	width: 960px;
+	height: 640px;
+}
+
+#game-infos {
+	flex: 1.5;
+	font-size: 2em;
+}
+
+#game-infos>span {
+	font-size: 1em;
+}
+
+.Pbs {
+	font-size: 2em;
+}
+
+#centeredGameSpan {
+	display: flex;
+	justify-content: center;
+}
+
+#gameInfosDiv>div {
+	height: 39px;
+	line-height: 41px;
+}
+
+
+#glyphSpan {
+	width: 70px;
+	height: 82px;
+}
+#glyph {
+	width: 70px;
+	height: 82px;
+}

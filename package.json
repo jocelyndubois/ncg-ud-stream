@@ -1,0 +1,82 @@
+{
+  "name": "stream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "nodecg": {
+    "compatibleRange": ">=0.9",
+    "dashboardPanels": [
+      {
+        "name": "UD",
+        "title": "UD",
+        "width": 6,
+        "file": "ud.html",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "LiveSplit",
+        "title": "LiveSplit",
+        "width": 3,
+        "file": "livesplit.html",
+        "headerColor": "#525F78"
+      }
+    ],
+    "graphics": [
+      {
+        "file": "player.html",
+        "width": 1775,
+        "height": 1080
+      },
+      {
+        "file": "player-GBA.html",
+        "width": 982,
+        "height": 754
+      },
+      {
+        "file": "player-genesis.html",
+        "width": 1302,
+        "height": 990
+      },
+      {
+        "file": "player-gamecube.html",
+        "width": 958,
+        "height": 814
+      },
+      {
+        "file": "logo.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "spotify.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "games.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "chrono.html",
+        "width": 256,
+        "height": 256
+      },
+      {
+        "file": "card.html",
+        "width": 1920,
+        "height": 1080
+      }
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bower-npm-resolver": "^0.11.0",
+    "node-ipc": "^9.1.1"
+  }
+}

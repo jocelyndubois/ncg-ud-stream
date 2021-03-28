@@ -1,0 +1,103 @@
+@keyframes blinkLight {
+	from {
+		color: red;
+	}
+	to {
+		color: white;
+	}
+}
+@-webkit-keyframes blinkLight {
+	from {
+		color: red;
+	}
+	to {
+		color: white;
+	}
+}
+
+@keyframes blinkDark {
+	from {
+		color: red;
+	}
+	to {
+		color: black;
+	}
+}
+@-webkit-keyframes blinkDark {
+	from {
+		color: red;
+	}
+	to {
+		color: black;
+	}
+}
+
+html,body {
+	/*background-color: #2c3347;*/
+	background-color: transparent;
+	color: #ffffff;
+}
+
+.container {
+	overflow: hidden;
+	width: 256px;
+	height: 256px;
+	position: absolute;
+	top: 0;
+}
+
+#chronoInfos {
+	position: absolute;
+	top: 0;
+	width: 256px;
+	height: 256px;
+}
+
+.infos {
+	font-weight: 300;
+	font-size: 80px;
+	position: relative;
+}
+
+#score-container {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#chrono {
+	width: 100%;
+	top: 60px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.score {
+	width: 38%;
+	top: 35px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#scoreLight {
+	color: white;
+}
+
+#scoreDark {
+	color: black;
+}
+
+.score.blink {
+	animation-duration: 1000ms;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+#scoreLight.blink {
+	animation-name: blinkLight;
+	-webkit-animation:blinkLight 1000ms infinite;
+}
+
+#scoreDark.blink {
+	animation-name: blinkDark;
+	-webkit-animation:blinkDark 1000ms infinite;
+}

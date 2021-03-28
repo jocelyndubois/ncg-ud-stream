@@ -1,0 +1,44 @@
+@import "players-GBA.css";
+
+html,body {
+	width: 958px;
+	height: 814px;
+}
+
+#gameFrame {
+	width: 936px;
+	height: 720px;
+}
+
+#game-infos {
+	flex: 1.5;
+	font-size: 2em;
+}
+
+#game-infos>span {
+	font-size: 1em;
+}
+
+.Pbs {
+	font-size: 2em;
+}
+
+#centeredGameSpan {
+	display: flex;
+	justify-content: center;
+}
+
+#gameInfosDiv>div {
+	height: 39px;
+	line-height: 41px;
+}
+
+
+#glyphSpan {
+	width: 70px;
+	height: 82px;
+}
+#glyph {
+	width: 70px;
+	height: 82px;
+}

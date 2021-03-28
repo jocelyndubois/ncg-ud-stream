@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/card.css">
+</head>
+<body>
+<div class="container">
+	<iframe id="cardIframe" class="hidden" width="100%" height="100%" src="" frameborder="0"></iframe>
+</div>
+</body>
+
+<script>
+	const cardIframe = document.querySelector('#cardIframe');
+
+	nodecg.listenFor('showCard', async infos => {
+		cardIframe.src = 'https://www.ultimedecathlon.com/runners/' + infos.runner + '/card/s' + infos.season;
+		cardIframe.classList.remove('hidden');
+	});
+	nodecg.listenFor('hideCard', async infos => {
+		cardIframe.classList.add('hidden');
+	});
+</script>
+</html>

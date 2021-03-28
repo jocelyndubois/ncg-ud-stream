@@ -1,0 +1,32 @@
+.container {
+	width: 452px;
+	height: 132px;
+	position: fixed; top:0; left: 0;
+}
+
+#musicInfos {
+	display: flex;
+	height: 132px;
+	background-color: rgba(0, 0, 0, 0.6);
+	width: 452px;
+}
+
+img {
+	height: 132px;
+}
+
+#infos {
+	font-size: 2em;
+	color: white;
+	font-family: roboto;
+	padding-left: 20px;
+}
+
+#infos>div {
+	line-height: 66px;
+	width: 295px;
+	overflow: hidden;
+	white-space: nowrap; /* Don't forget this one */
+	text-overflow: ellipsis;
+}
+

@@ -1,0 +1,89 @@
+@font-face {
+	font-family: hollow-knight;
+	src: url('../../font/games/UD9/hollow-knight.ttf');
+}
+
+.hollow-knight {
+	font-family: hollow-knight, monospace;
+}
+
+@font-face {
+	font-family: steamworld-dig-2;
+	src: url('../../font/games/UD9/steamworld-dig-2.otf');
+}
+
+.steamworld-dig-2 {
+	font-family: steamworld-dig-2, monospace;
+}
+
+@font-face {
+	font-family: mintroid;
+	src: url('../../font/games/UD9/mintroid.ttf');
+}
+
+.mintroid {
+	font-family: mintroid, monospace;
+}
+
+@font-face {
+	font-family: ghoulsn-ghosts;
+	src: url('../../font/games/UD9/ghoulsn-ghosts.ttf');
+}
+
+.ghoulsn-ghosts {
+	font-family: ghoulsn-ghosts, monospace;
+}
+
+@font-face {
+	font-family: unworthy;
+	src: url('../../font/games/UD9/unworthy.otf');
+}
+
+.unworthy {
+	font-family: unworthy, monospace;
+}
+
+@font-face {
+	font-family: hamsterball;
+	src: url('../../font/games/UD9/hamsterball.TTF');
+}
+
+.hamsterball {
+	font-family: hamsterball, monospace;
+}
+
+@font-face {
+	font-family: trials-fusion;
+	src: url('../../font/games/UD9/trials-fusion.otf');
+}
+
+.trials-fusion {
+	font-family: trials-fusion, monospace;
+}
+
+@font-face {
+	font-family: kururin-squash;
+	src: url('../../font/games/UD9/kururin-squash.ttf');
+}
+
+.kururin-squash {
+	font-family: kururin-squash, monospace;
+}
+
+@font-face {
+	font-family: super-monkey-ball-adventure;
+	src: url('../../font/games/UD9/super-monkey-ball-adventure.ttf');
+}
+
+.super-monkey-ball-adventure {
+	font-family: super-monkey-ball-adventure, monospace;
+}
+
+@font-face {
+	font-family: vectronom;
+	src: url('../../font/games/UD9/vectronom.ttf');
+}
+
+.vectronom {
+	font-family: vectronom, monospace;
+}

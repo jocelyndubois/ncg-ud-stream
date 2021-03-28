@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/global.css">
+
+	<script type="text/javascript" src="js/replicants.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<label for="ip" class="form-label">IP</label>
+				<input type="text" id="ip" class="form-control form-select form-select-sm" value="192.168.0.47" />
+			</div>
+			<div class="col">
+				<label for="port" class="form-label">Port</label>
+				<input type="text" id="port" class="form-control form-select form-select-sm" value="16834" />
+			</div>
+		</div>
+		</br>
+		<div class="row">
+			<div class="col">
+				<a href="#" id="connect" class="btn btn-primary btn-lg">CONNECT</a>
+			</div>
+			<div class="col">
+				<a href="#" id="disconnect"  class="btn btn-danger btn-lg">DISCONNECT</a>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	const ip = document.querySelector('#ip');
+	const port = document.querySelector('#port');
+
+	const connect = document.querySelector('#connect');
+	const disconnect = document.querySelector('#disconnect');
+
+	connect.onclick = () => {
+		nodecg.sendMessage(
+			'livesplit:connect',
+			{
+				ip: ip.value,
+				port: port.value
+			}
+		);
+	};
+
+	disconnect.onclick = () => {
+		nodecg.sendMessage(
+			'livesplit:disconnect',
+			{
+				ip: ip.value,
+				port: port.value
+			}
+		);
+	};
+
+	livesplitConnection.on('change', (connectionStatus) => {
+		if (connectionStatus) {
+			connect.classList.add('disabled');
+			disconnect.classList.remove('disabled');
+		} else {
+			connect.classList.remove('disabled');
+			disconnect.classList.add('disabled');
+		}
+	});
+
+</script>
+</html>

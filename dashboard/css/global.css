@@ -1,0 +1,12 @@
+body {
+	background: #2F3A4F;
+	color: white;
+}
+
+th, td {
+	color: white;
+}
+
+.hidden {
+	display: none;
+}

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/games.css">
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/replicants.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body>
+<div class="container">
+	<nodecg-livesplit></nodecg-livesplit>
+	<form class="row g-3">
+		<div class="col-md-6">
+			<label for="seasonInput" class="form-label">Season :</label>
+			<input class="form-control" type="number" id="seasonInput" placeholder="seasonId"/>
+			<button class="btn btn-primary" id="fetchGamesButton">Fetch Games</button>
+		</div>
+		<div class="col-md-6">
+			<label for="gameSelect" class="form-label">Game :</label>
+			<select class="form-control form-select form-select-sm" name="gameSelect" id="gameSelect"></select>
+		</div>
+		<div class="col-6">
+			<label for="gameName" class="form-label">Name</label>
+			<input disabled type="text" class="form-control" id="gameName">
+		</div>
+		<div class="col-md-4">
+			<label for="gameColor" class="form-label">Color</label>
+			<input disabled type="text" class="form-control" id="gameColor">
+		</div>
+		<div class="col-md-2">
+			<svg id="gameSvg" data-width="1000" viewBox="0,0,1000,1000" height="75" width="75">
+				<path id="gameSvgPath" d="" fill="#FFFFFF"/>
+			</svg>
+		</div>
+		<div class="col-6">
+			<label for="gameCategoryLight" class="form-label">Category light</label>
+			<input disabled type="text" class="form-control" id="gameCategoryLight">
+		</div>
+		<div class="col-6">
+			<label for="gameCategoryDark" class="form-label">Category dark</label>
+			<input disabled type="text" class="form-control" id="gameCategoryDark">
+		</div>
+		<div class="col-md-12">
+			<table class="table">
+				<tbody>
+				<tr>
+					<th>&nbsp;</th>
+					<th>200 pts</th>
+					<th>100 pts</th>
+					<th>0 pts</th>
+					<th>min</th>
+					<th>max</th>
+				</tr>
+				</tbody>
+				<tbody>
+				<tr>
+					<td>LIGHT</td>
+					<td><input disabled type="text" class="form-control" id="gameMaxTimeLight"></td>
+					<td><input disabled type="text" class="form-control" id="gameMidTimeLight"></td>
+					<td><input disabled type="text" class="form-control" id="gameFewTimeLight"></td>
+					<td><input disabled type="text" class="form-control" id="gameMinScoreLight"></td>
+					<td><input disabled type="text" class="form-control" id="gameMaxScoreLight"></td>
+				</tr>
+				<tr>
+					<td>DARK</td>
+					<td><input disabled type="text" class="form-control" id="gameMaxTimeDark"></td>
+					<td><input disabled type="text" class="form-control" id="gameMidTimeDark"></td>
+					<td><input disabled type="text" class="form-control" id="gameFewTimeDark"></td>
+					<td><input disabled type="text" class="form-control" id="gameMinScoreDark"></td>
+					<td><input disabled type="text" class="form-control" id="gameMaxScoreDark"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-12">
+			<table class="table">
+				<tbody>
+				<tr>
+					<th><b>PB</b></th>
+					<th>SCORE</th>
+					<th>TIME</th>
+				</tr>
+				</tbody>
+				<tbody>
+				<tr>
+					<td>LIGHT</td>
+					<td><input disabled type="text" class="form-control" id="PbLightScore"></td>
+					<td><input disabled type="text" class="form-control" id="PbLightTime"></td>
+				</tr>
+				<tr>
+					<td>DARK</td>
+					<td><input disabled type="text" class="form-control" id="PbDarkScore"></td>
+					<td><input disabled type="text" class="form-control" id="PbDarkTime"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</form>
+
+	<div class="row">
+		<div class="col-7">
+			<h4>Display PB and category:</h4>
+			<a class="btn btn-light" id="sendPBLight">LIGHT</a>
+			<a class="btn btn-dark" id="sendPBDark">DARK</a>
+			<a class="btn btn-secondary" id="sendPBAgg">BOTH</a>
+			<a class="btn btn-danger" id="hidePB">HIDE</a>
+		</div>
+		<div class="col-4">
+			<h4>Chrono</h4>
+			<a class="btn btn-light" id="startLight">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 26 26">
+					<polygon class="play-btn__svg" points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69"/>
+				</svg>
+			</a>
+			<a class="btn btn-dark" id="startDark">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 26 26">
+					<polygon class="play-btn__svg" points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69" fill="#FFFFFF"/>
+				</svg>
+			</a>
+			<a class="btn btn-warning" data-todo="pause" id="pause">
+				<svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 36 36">
+					<path id="ytp-12" d="M 11 10 L 17 10 L 17 26 L 11 26 M 20 10 L 26 10 L 26 26 L 20 26">
+						<animate id="animation" begin="indefinite" attributeType="XML" attributeName="d" fill="freeze"
+								 from="M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26"
+								 to="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28" dur="0.1s"
+								 keySplines=".4 0 1 1" repeatCount="1"></animate>
+					</path>
+				</svg>
+			</a>
+
+			<a class="btn btn-danger" id="stop">
+				<svg xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 100 100">
+					<path d="M 10 10 H 90 V 90 H 10 L 10 10"/>
+				</svg>
+			</a>
+		</div>
+	</div>
+
+
+</div>
+</body>
+
+<script>
+	const gameSelect = document.querySelector('#gameSelect');
+	const seasonInput = document.querySelector('#seasonInput');
+	const fetchGamesButton = document.querySelector('#fetchGamesButton');
+
+	const sendPBLight = document.querySelector('#sendPBLight');
+	const sendPBDark = document.querySelector('#sendPBDark');
+	const sendPBAgg = document.querySelector('#sendPBAgg');
+	const hidePB = document.querySelector('#hidePB');
+
+	const startLight = document.querySelector('#startLight');
+	const startDark = document.querySelector('#startDark');
+	const pause = document.querySelector('#pause');
+	const stop = document.querySelector('#stop');
+
+	const gameName = document.querySelector('#gameName');
+	const gameColor = document.querySelector('#gameColor');
+	const gameSvg = document.querySelector('#gameSvg');
+	const gameSvgPath = document.querySelector('#gameSvgPath');
+	const gameCategoryLight = document.querySelector('#gameCategoryLight');
+	const gameCategoryDark = document.querySelector('#gameCategoryDark');
+	const gameMaxTimeLight = document.querySelector('#gameMaxTimeLight');
+	const gameMidTimeLight = document.querySelector('#gameMidTimeLight');
+	const gameFewTimeLight = document.querySelector('#gameFewTimeLight');
+	const gameMaxTimeDark = document.querySelector('#gameMaxTimeDark');
+	const gameMidTimeDark = document.querySelector('#gameMidTimeDark');
+	const gameFewTimeDark = document.querySelector('#gameFewTimeDark');
+	const gameMinScoreLight = document.querySelector('#gameMinScoreLight');
+	const gameMaxScoreLight = document.querySelector('#gameMaxScoreLight');
+	const gameMinScoreDark = document.querySelector('#gameMinScoreDark');
+	const gameMaxScoreDark = document.querySelector('#gameMaxScoreDark');
+
+	const PbLightScore = document.querySelector('#PbLightScore');
+	const PbLightTime = document.querySelector('#PbLightTime');
+	const PbDarkScore = document.querySelector('#PbDarkScore');
+	const PbDarkTime = document.querySelector('#PbDarkTime');
+
+	let flip = true,
+		pauseSvg = "M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28",
+		playSvg = "M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26",
+		$animation = $('#animation');
+
+	$(document).ready(function () {
+		fetchGamesButton.onclick = () => {
+			nodecg.sendMessage(
+				'fetchGamesList',
+				seasonInput.value
+			);
+		};
+
+		//[CHRONO]
+		startLight.onclick = () => {
+			nodecg.sendMessage(
+				'startTimer',
+				{
+					category: 'light',
+					light: {
+						bestTime: gameMaxTimeLight.dataset.seconds,
+						middleTime: gameMidTimeLight.dataset.seconds,
+						minScore: gameMinScoreLight.value,
+						maxScore: gameMaxScoreLight.value,
+					},
+					dark: {
+						bestTime: gameMaxTimeDark.dataset.seconds,
+						middleTime: gameMidTimeDark.dataset.seconds,
+						minScore: gameMinScoreDark.value,
+						maxScore: gameMaxScoreDark.value,
+					}
+				}
+			);
+
+			nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'starttimer');
+		};
+		startDark.onclick = () => {
+			nodecg.sendMessage(
+				'startTimer',
+				{
+					category: 'dark',
+					light: {
+						bestTime: gameMaxTimeLight.dataset.seconds,
+						middleTime: gameMidTimeLight.dataset.seconds,
+						minScore: gameMinScoreLight.value,
+						maxScore: gameMaxScoreLight.value,
+					},
+					dark: {
+						bestTime: gameMaxTimeDark.dataset.seconds,
+						middleTime: gameMidTimeDark.dataset.seconds,
+						minScore: gameMinScoreDark.value,
+						maxScore: gameMaxScoreDark.value,
+					}
+				}
+			);
+
+			nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'starttimer');
+		};
+		stop.onclick = () => {
+			nodecg.sendMessage('stopTimer');
+
+			nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'reset');
+		};
+
+		pause.onclick = () => {
+			if ('pause' === pause.dataset.todo) {
+				nodecg.sendMessage('pauseTimer');
+
+				nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'pause');
+
+				pause.dataset.todo = 'resume';
+
+				$animation.attr({
+					"from": playSvg,
+					"to": pauseSvg
+				}).get(0).beginElement();
+			} else {
+				nodecg.sendMessage('resumeTimer');
+
+				nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'resume');
+
+				pause.dataset.todo = 'pause';
+
+				$animation.attr({
+					"from": pauseSvg,
+					"to": playSvg
+				}).get(0).beginElement();
+			}
+		};
+
+		//[PB]
+		sendPBLight.onclick = () => {
+			nodecg.sendMessage(
+				'showPB',
+				{
+					color: gameColor.value,
+					game: gameSelect.value,
+					category: gameCategoryLight.value,
+					score: parseInt(PbLightScore.value),
+					time: PbLightTime.value,
+					glyph: {
+						width: gameSvg.dataset.width,
+						path: gameSvgPath.getAttribute('d')
+					}
+				}
+			);
+
+			sendGameGlyph(gameSelect.value, seasonInput.value);
+		};
+		sendPBDark.onclick = () => {
+			nodecg.sendMessage(
+				'showPB',
+				{
+					color: gameColor.value,
+					game: gameSelect.value,
+					category: gameCategoryDark.value,
+					score: parseInt(PbDarkScore.value),
+					time: PbDarkTime.value,
+					glyph: {
+						width: gameSvg.dataset.width,
+						path: gameSvgPath.getAttribute('d')
+					}
+				}
+			);
+
+			sendGameGlyph(gameSelect.value, seasonInput.value);
+		};
+		sendPBAgg.onclick = () => {
+			let lightScore = parseInt(PbLightScore.value);
+			let darkScore = parseInt(PbDarkScore.value) ?? 0;
+			let lightTime = PbLightTime.value;
+			let darkTime = PbDarkTime.value;
+
+			let score;
+			let time;
+			if (lightScore > darkScore) {
+				score = lightScore;
+				time = lightTime;
+			} else {
+				score = darkScore;
+				time = darkTime;
+			}
+
+			nodecg.sendMessage(
+				'showPB',
+				{
+					color: gameColor.value,
+					game: gameSelect.value,
+					category: gameCategoryDark.value,
+					score: score,
+					time: time,
+					glyph: {
+						width: gameSvg.dataset.width,
+						path: gameSvgPath.getAttribute('d')
+					}
+				}
+			);
+
+			sendGameGlyph(gameSelect.value, seasonInput.value);
+		};
+		hidePB.onclick = () => {
+			nodecg.sendMessage(
+				'hidePB'
+			);
+		};
+
+		//[TRIGGERS Seasons/Game]
+		seasonInput.onchange = () => {
+			season.value = seasonInput.value;
+		}
+		season.on('change', () => {
+			seasonInput.value = season.value;
+		});
+		gameSelect.onchange = () => {
+			game.value = gameSelect.value;
+
+			nodecg.sendMessage(
+				'getGameInfos',
+				{
+					season: seasonInput.value,
+					game: gameSelect.value
+				},
+			);
+
+			nodecg.sendMessage(
+				'fetchPbs',
+				{
+					season: seasonInput.value,
+					game: gameSelect.value
+				},
+			);
+		}
+		fetchGamesListReplicant.on('change', (newValue) => {
+			if (!newValue) {
+				return;
+			}
+
+			if (gameSelect.options) {
+				//First, we clear the old games list.
+				var length = gameSelect.options.length;
+				for (let i = length - 1; i >= 0; i--) {
+					gameSelect.options[i].remove();
+				}
+			}
+
+			//Then we add the new one.
+			for (let i = 0; i < newValue.length; i++) {
+				let game = document.createElement("option");
+				game.value = newValue[i];
+				game.text = newValue[i];
+
+				gameSelect.add(game);
+			}
+
+			season.value = seasonInput.value;
+			gameSelect.onchange();
+		});
+		gameInfos.on('change', (infos) => {
+			if (!infos) {
+				return;
+			}
+
+			gameName.value = infos.name;
+			gameColor.value = infos.hexColor;
+			gameColor.style.backgroundColor = '#' + infos.hexColor;
+			gameColor.style.color = 'white';
+			// gameSvg.setAttribute('viewBox', '0,0,' + infos.pathInformation.width + ',' + infos.pathInformation.width);
+			gameSvg.dataset.width = infos.pathInformation.width;
+			gameSvgPath.setAttribute('d', infos.pathInformation.path);
+
+			gameCategoryLight.value = infos.light.category;
+			gameCategoryDark.value = infos.dark.category;
+
+
+			gameMinScoreLight.value = infos.light.minScore ? infos.light.minScore : '';
+			gameMaxScoreLight.value = infos.light.maxScore ? infos.light.maxScore : '';
+			gameMinScoreDark.value = infos.dark.minScore ? infos.dark.minScore : '';
+			gameMaxScoreDark.value = infos.dark.maxScore ? infos.dark.maxScore : '';
+
+			gameMaxTimeLight.value = new Date(infos.light.bestTime * 1000).toISOString().substr(11, 8);
+			gameMaxTimeLight.dataset.seconds = infos.light.bestTime;
+			gameMidTimeLight.value = new Date(infos.light.middleTime * 1000).toISOString().substr(11, 8);
+			gameMidTimeLight.dataset.seconds = infos.light.middleTime;
+			gameFewTimeLight.value = new Date(infos.light.fewestTime * 1000).toISOString().substr(11, 8);
+			gameFewTimeLight.dataset.seconds = infos.light.fewestTime;
+
+			gameMaxTimeDark.value = new Date(infos.dark.bestTime * 1000).toISOString().substr(11, 8);
+			gameMaxTimeDark.dataset.seconds = infos.dark.bestTime;
+			gameMidTimeDark.value = new Date(infos.dark.middleTime * 1000).toISOString().substr(11, 8);
+			gameMidTimeDark.dataset.seconds = infos.dark.middleTime;
+			gameFewTimeDark.value = new Date(infos.dark.fewestTime * 1000).toISOString().substr(11, 8);
+			gameFewTimeDark.dataset.seconds = infos.dark.fewestTime;
+		});
+
+		fetchPbsReplicant.on('change', (PB) => {
+			if (!PB) {
+				return;
+			}
+
+			let lightScore = 0;
+			let lightTime = "99:99:99";
+			if (PB.light && PB.light.score) {
+				lightScore = PB.light.score;
+				lightTime = new Date(PB.light.time * 1000).toISOString().substr(11, 8);
+			}
+			PbLightScore.value = lightScore;
+			PbLightTime.value = lightTime;
+
+			let darkScore = 0;
+			let darkTime = "99:99:99";
+			if (PB.dark && PB.dark.score) {
+				darkScore = PB.dark.score;
+				darkTime = new Date(PB.dark.time * 1000).toISOString().substr(11, 8);
+			}
+			PbDarkScore.value = darkScore;
+			PbDarkTime.value = darkTime;
+		});
+	});
+</script>
+</html>

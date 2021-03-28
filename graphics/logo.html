@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/logo.css">
+
+	<script type="text/javascript" src="js/replicants.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body>
+	<div class="container">
+		<img id="logo" src="img/logo.png">
+	</div>
+</body>
+
+<script>
+	const logo = document.querySelector('#logo');
+
+	nodecg.listenFor('sendLogo', (infos) => {
+		logo.src = 'img/games/UD' + infos.season + '/' + string_to_slug(infos.game) + '.png';
+	});
+</script>
+</html>

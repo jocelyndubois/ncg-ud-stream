@@ -1,0 +1,9 @@
+@import "fonts/fonts.css";
+
+.hidden {
+	display: none;
+}
+
+html, body {
+	font-family: pixel, monospace;
+}

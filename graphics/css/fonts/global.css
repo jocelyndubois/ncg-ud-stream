@@ -1,0 +1,9 @@
+@font-face {
+	font-family: pixel;
+	src: url('../../font/VT323-Regular.ttf');
+}
+
+@font-face {
+	font-family: roboto;
+	src: url('../../font/RobotoSlab.ttf');
+}

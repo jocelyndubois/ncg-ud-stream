@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/spotify.css">
+
+	<script type="text/javascript" src="js/replicants.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div id="musicInfos">
+			<div id="image">
+<!--				<img id="spotifyLogo" src="img/spotify.png">-->
+				<img id="albumArt" class="" src="#">
+			</div>
+			<div id="infos">
+				<div id="song"></div>
+				<div id="artist"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	const song = document.querySelector('#song');
+	const artist = document.querySelector('#artist');
+	const albumArt = document.querySelector('#albumArt');
+
+	songRep.on('change', songVal => {
+		if (song.innerHTML !== songVal.name) {
+			song.innerHTML = songVal.name;
+			artist.innerHTML = songVal.artist;
+			albumArt.src = songVal.albumArt;
+		}
+	});
+</script>
+</html>
