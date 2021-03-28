@@ -33,12 +33,10 @@ nodecg setup
 ```
 
 ##Installation :
-1. Clonez (ou téléchargez et dézippez) dans `nodecg/bundles/ncg-ud-stream`. 
+1. `nodecg install jocelyndubois/ncg-ud-stream`. 
 2. `cd nodecg/bundles/ncg-ud-stream`
 3. `nodecg defaultconfig` ceci va créer un fichier ncg-ud-stream.json dans `nodecg/cfg`
 4. Editez le fichier en question et mettez votre identifiant UD à la place de `RUNNER-NAME`
-5. `npm install --production`
-6. `bower install`
 
 ##Livesplit
 Ce bundle inclus une reprise du travail de EwanLyon sur l'intégration de Livesplit.
@@ -47,3 +45,6 @@ Son travail est trouvable [ici](https://github.com/EwanLyon/nodecg-livesplit)
 
 ##Spotify
 Si vous voulez utilisez la vue spotify intégrée, suivez d'abord les étapes d'installation du bundle [ici](https://github.com/EwanLyon/ncg-spotify)
+
+##Utilisation
+Pour utiliser nodecg, `nodecg start` dans le dossier racine de nodecg.

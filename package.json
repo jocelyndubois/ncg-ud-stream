@@ -1,12 +1,12 @@
 {
-  "name": "stream",
+  "name": "ncg-ud-stream",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ultime Décathlon personnal streaming companion",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "jocelyndubois",
   "license": "MIT",
   "nodecg": {
     "compatibleRange": ">=0.9",

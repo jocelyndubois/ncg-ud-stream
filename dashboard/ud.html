@@ -215,7 +215,7 @@
 				}
 			);
 
-			nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'starttimer');
+			nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
 		};
 		startDark.onclick = () => {
 			nodecg.sendMessage(
@@ -237,19 +237,19 @@
 				}
 			);
 
-			nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'starttimer');
+			nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
 		};
 		stop.onclick = () => {
 			nodecg.sendMessage('stopTimer');
 
-			nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'reset');
+			nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'reset');
 		};
 
 		pause.onclick = () => {
 			if ('pause' === pause.dataset.todo) {
 				nodecg.sendMessage('pauseTimer');
 
-				nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'pause');
+				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'pause');
 
 				pause.dataset.todo = 'resume';
 
@@ -260,7 +260,7 @@
 			} else {
 				nodecg.sendMessage('resumeTimer');
 
-				nodecg.sendMessageToBundle('livesplit:sendAction', 'stream', 'resume');
+				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'resume');
 
 				pause.dataset.todo = 'pause';
 
