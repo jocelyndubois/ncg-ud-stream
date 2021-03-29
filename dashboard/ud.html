@@ -12,7 +12,6 @@
 </head>
 <body>
 <div class="container">
-	<nodecg-livesplit></nodecg-livesplit>
 	<form class="row g-3">
 		<div class="col-md-6">
 			<label for="seasonInput" class="form-label">Season :</label>
@@ -41,12 +40,11 @@
 			</svg>
 		</div>
 		<div class="col-6">
-			<input type="checkbox" id="lightDarkBox">
-
-			<label id="button" for="lightDarkBox">
-				<div id="knob"></div>
-				<div id="light">Light</div>
-				<div id="dark">Dark</div>
+			<label for="lightDarkBox" class="form-label">Light/Dark</label>
+			</br>
+			<label class="switch">
+				<input type="checkbox" id="lightDarkBox">
+				<span class="slider round"></span>
 			</label>
 		</div>
 		<div class="col-6">
@@ -127,6 +125,8 @@
 			<label for="callLivesplit">Use Livesplit ?</label>
 			<input id="callLivesplit" type="checkbox" checked />
 			</br>
+			<input type="number" class="form-control" id="delay" placeholder="delay"/>
+			</br>
 			<a class="btn btn-primary" data-todo="start" id="startPause">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 36 36">
 					<path id="ytp-12" d="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28">
@@ -193,6 +193,8 @@
 
 	const lightDarkBox = document.querySelector('#lightDarkBox');
 
+	const delay = document.querySelector('#delay');
+
 	let categoryChoice;
 
 
@@ -253,10 +255,22 @@
 					"to": pauseSvg
 				}).get(0).beginElement();
 			} else if ('start' === startPause.dataset.todo) {
+				if (delay.value && parseInt(delay.value) > 0) {
+					nodecg.sendMessage(
+						'preTimer',
+						{
+							delay: delay.value,
+							color: gameColor.value,
+						}
+					);
+				}
+
 				nodecg.sendMessage(
 					'startTimer',
 					{
 						category: categoryChoice,
+						delay: delay.value,
+						livesplit: callLivesplit.checked,
 						light: {
 							bestTime: gameMaxTimeLight.dataset.seconds,
 							middleTime: gameMidTimeLight.dataset.seconds,
@@ -278,10 +292,6 @@
 					"from": pauseSvg,
 					"to": playSvg
 				}).get(0).beginElement();
-
-				if (callLivesplit.checked) {
-					nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
-				}
 			} else {
 				nodecg.sendMessage('resumeTimer');
 

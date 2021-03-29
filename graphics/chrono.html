@@ -14,10 +14,10 @@
 
 <body>
 <div class="container">
-	<video muted class="hidden" id="chronoVid">
-		<source src="video/chrono-start.webm" type="video/webm">
-	</video>
-	<video muted loop class="hidden" id="chronoVidLoop">
+<!--	<video muted class="hidden" id="chronoVid">-->
+<!--		<source src="video/chrono-start.webm" type="video/webm">-->
+<!--	</video>-->
+	<video autoplay muted loop id="chronoVidLoop">
 		<source src="video/chrono.webm" type="video/webm">
 	</video>
 	<div id="chronoInfos">
@@ -32,8 +32,6 @@
 	const chrono = document.querySelector('#chrono');
 	const scoreLightSpan = document.querySelector('#scoreLight');
 	const scoreDarkSpan = document.querySelector('#scoreDark');
-	const chronoVid = document.querySelector('#chronoVid');
-	const chronoVidLoop = document.querySelector('#chronoVidLoop');
 
 	// Convert time to a format of hours, minutes, seconds, and milliseconds
 	function timeToString(time) {
@@ -73,18 +71,33 @@
 		chrono.innerHTML = txt;
 	}
 
+	let timerphase = 'NotRunning';
+
 	// Create "start", "pause" and "reset" functions
 	function start() {
 		startTime = Date.now() - elapsedTime;
 		timerInterval = setInterval(function printTime() {
 			elapsedTime = Date.now() - startTime;
-			print(timeToString(elapsedTime));
-			updateScore(elapsedTime);
+			parseAndDisplay();
 		}, 10);
+	}
+
+	function parseAndDisplay()
+	{
+		print(timeToString(elapsedTime));
+		updateScore(elapsedTime);
 	}
 
 	function pause() {
 		clearInterval(timerInterval);
+
+		nodecg.sendMessageToBundle('livesplit:sendData', 'ncg-ud-stream', 'getcurrenttime', (finalTime) => {
+			elapsedTime = hmsToSecondsOnly(finalTime) * 1000;
+			console.log(hmsToSecondsOnly(finalTime));
+			console.log(finalTime);
+			console.log(elapsedTime);
+			parseAndDisplay();
+		});
 	}
 
 	function reset() {
@@ -93,13 +106,23 @@
 		scoreLightSpan.innerHTML = "";
 		scoreDarkSpan.innerHTML = "";
 		elapsedTime = 0;
-		chronoVidLoop.classList.add('hidden');
-		chronoVid.classList.add('hidden');
-		chronoVidLoop.pause();
-		chronoVid.pause();
 	}
 
 	nodecg.listenFor('startTimer', async gameInfos => {
+		if (gameInfos.delay) {
+			sleep(parseInt(gameInfos.delay) * 1000).then(() => {
+				startTimer(gameInfos);
+			});
+		} else {
+			startTimer(gameInfos);
+		}
+	});
+
+	function startTimer(gameInfos) {
+		if (gameInfos.livesplit) {
+			nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
+		}
+
 		reset();
 		scoreLightSpan.dataset.bestTime = gameInfos.light.bestTime;
 		scoreLightSpan.dataset.middleTime = gameInfos.light.middleTime;
@@ -114,19 +137,7 @@
 		chrono.dataset.category = gameInfos.category;
 
 		start();
-
-		chronoVid.load();
-		chronoVidLoop.load();
-		chronoVidLoop.play();
-		chronoVidLoop.classList.add('hidden');
-		chronoVid.classList.remove('hidden');
-		chronoVid.play();
-	});
-
-	chronoVid.addEventListener('ended',function () {
-		chronoVidLoop.classList.remove('hidden');
-		chronoVid.classList.add('hidden');
-	}, false);
+	}
 
 	nodecg.listenFor('stopTimer', async query => {
 		reset();

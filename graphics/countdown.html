@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/countdown.css">
+	<link rel="stylesheet" href="css/global.css">
+
+<!--	<script src="https://code.jquery.com/jquery-3.6.0.min.js"-->
+<!--			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.4/hammer.js"></script>
+	<script type="text/javascript" src="js/replicants.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/countdown.js"></script>
+</head>
+<body>
+<div class="container hidden">
+	<div class="countdown countdown--wide" id="countdown">
+		<div class="countdown__fill" id="ticker"></div>
+		<div class="countdown__digit" id="seconds"></div>
+	</div>
+</div>
+</body>
+
+<script>
+	const container = document.querySelector('.container');
+
+	nodecg.listenFor('preTimer', async infos => {
+		container.classList.remove('hidden');
+		var timer = new Timer(parseInt(infos.delay) * 1000, document.getElementById('countdown'));
+		timer.start();
+	});
+
+	document.addEventListener('ended', function (e) {
+		sleep(1000).then(() => {
+			container.classList.add('hidden');
+		});
+	}, false);
+</script>
+</html>
