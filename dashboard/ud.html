@@ -3,7 +3,7 @@
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/global.css">
-	<link rel="stylesheet" href="css/games.css">
+	<link rel="stylesheet" href="css/ud.css">
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -16,8 +16,12 @@
 	<form class="row g-3">
 		<div class="col-md-6">
 			<label for="seasonInput" class="form-label">Season :</label>
-			<input class="form-control" type="number" id="seasonInput" placeholder="seasonId"/>
-			<button class="btn btn-primary" id="fetchGamesButton">Fetch Games</button>
+			<div class="input-group mb-3">
+				<input type="number" class="form-control" id="seasonInput" id="seasonInput">
+				<div class="input-group-append">
+					<button class="btn btn-outline-primary" id="fetchGamesButton" type="button">Fetch Games</button>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-6">
 			<label for="gameSelect" class="form-label">Game :</label>
@@ -37,14 +41,25 @@
 			</svg>
 		</div>
 		<div class="col-6">
-			<label for="gameCategoryLight" class="form-label">Category light</label>
-			<input disabled type="text" class="form-control" id="gameCategoryLight">
+			<input type="checkbox" id="lightDarkBox">
+
+			<label id="button" for="lightDarkBox">
+				<div id="knob"></div>
+				<div id="light">Light</div>
+				<div id="dark">Dark</div>
+			</label>
 		</div>
 		<div class="col-6">
-			<label for="gameCategoryDark" class="form-label">Category dark</label>
-			<input disabled type="text" class="form-control" id="gameCategoryDark">
+			<div id="categoryDivLight" class="categoryDiv">
+				<label for="gameCategoryLight" class="form-label">Category</label>
+				<input disabled type="text" class="form-control" id="gameCategoryLight">
+			</div>
+			<div id="categoryDivDark" class="categoryDiv hidden">
+				<label for="gameCategoryDark" class="form-label">Category</label>
+				<input disabled type="text" class="form-control" id="gameCategoryDark">
+			</div>
 		</div>
-		<div class="col-md-12">
+		<div class="col-md-12 hidden">
 			<table class="table">
 				<tbody>
 				<tr>
@@ -86,12 +101,12 @@
 				</tr>
 				</tbody>
 				<tbody>
-				<tr>
+				<tr id="PBDivLight">
 					<td>LIGHT</td>
 					<td><input disabled type="text" class="form-control" id="PbLightScore"></td>
 					<td><input disabled type="text" class="form-control" id="PbLightTime"></td>
 				</tr>
-				<tr>
+				<tr id="PBDivDark" class="hidden">
 					<td>DARK</td>
 					<td><input disabled type="text" class="form-control" id="PbDarkScore"></td>
 					<td><input disabled type="text" class="form-control" id="PbDarkTime"></td>
@@ -104,8 +119,7 @@
 	<div class="row">
 		<div class="col-7">
 			<h4>Display PB and category:</h4>
-			<a class="btn btn-light" id="sendPBLight">LIGHT</a>
-			<a class="btn btn-dark" id="sendPBDark">DARK</a>
+			<a class="btn btn-primary" id="sendPB">SEND</a>
 			<a class="btn btn-danger" id="hidePB">HIDE</a>
 		</div>
 		<div class="col-4">
@@ -113,22 +127,12 @@
 			<label for="callLivesplit">Use Livesplit ?</label>
 			<input id="callLivesplit" type="checkbox" checked />
 			</br>
-			<a class="btn btn-light" id="startLight">
-				<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 26 26">
-					<polygon class="play-btn__svg" points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69"/>
-				</svg>
-			</a>
-			<a class="btn btn-dark" id="startDark">
-				<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 26 26">
-					<polygon class="play-btn__svg" points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69" fill="#FFFFFF"/>
-				</svg>
-			</a>
-			<a class="btn btn-warning" data-todo="pause" id="pause">
-				<svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 36 36">
-					<path id="ytp-12" d="M 11 10 L 17 10 L 17 26 L 11 26 M 20 10 L 26 10 L 26 26 L 20 26">
+			<a class="btn btn-primary" data-todo="start" id="startPause">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 36 36">
+					<path id="ytp-12" d="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28">
 						<animate id="animation" begin="indefinite" attributeType="XML" attributeName="d" fill="freeze"
-								 from="M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26"
-								 to="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28" dur="0.1s"
+								 from="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28"
+								 to="M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26" dur="0.1s"
 								 keySplines=".4 0 1 1" repeatCount="1"></animate>
 					</path>
 				</svg>
@@ -153,13 +157,10 @@
 
 	const callLivesplit = document.querySelector('#callLivesplit');
 
-	const sendPBLight = document.querySelector('#sendPBLight');
-	const sendPBDark = document.querySelector('#sendPBDark');
+	const sendPB = document.querySelector('#sendPB');
 	const hidePB = document.querySelector('#hidePB');
 
-	const startLight = document.querySelector('#startLight');
-	const startDark = document.querySelector('#startDark');
-	const pause = document.querySelector('#pause');
+	const startPause = document.querySelector('#startPause');
 	const stop = document.querySelector('#stop');
 
 	const gameName = document.querySelector('#gameName');
@@ -179,10 +180,21 @@
 	const gameMinScoreDark = document.querySelector('#gameMinScoreDark');
 	const gameMaxScoreDark = document.querySelector('#gameMaxScoreDark');
 
+	const categoryDivLight = document.querySelector('#categoryDivLight');
+	const categoryDivDark = document.querySelector('#categoryDivDark');
+
+	const PBDivLight = document.querySelector('#PBDivLight');
+	const PBDivDark = document.querySelector('#PBDivDark');
+
 	const PbLightScore = document.querySelector('#PbLightScore');
 	const PbLightTime = document.querySelector('#PbLightTime');
 	const PbDarkScore = document.querySelector('#PbDarkScore');
 	const PbDarkTime = document.querySelector('#PbDarkTime');
+
+	const lightDarkBox = document.querySelector('#lightDarkBox');
+
+	let categoryChoice;
+
 
 	livesplitConnection.on('change', (connectionStatus) => {
 		if (connectionStatus) {
@@ -200,6 +212,8 @@
 		$animation = $('#animation');
 
 	$(document).ready(function () {
+		getCategoryStatus();
+
 		fetchGamesButton.onclick = () => {
 			nodecg.sendMessage(
 				'fetchGamesList',
@@ -208,63 +222,15 @@
 		};
 
 		//[CHRONO]
-		startLight.onclick = () => {
-			nodecg.sendMessage(
-				'startTimer',
-				{
-					category: 'light',
-					light: {
-						bestTime: gameMaxTimeLight.dataset.seconds,
-						middleTime: gameMidTimeLight.dataset.seconds,
-						minScore: gameMinScoreLight.value,
-						maxScore: gameMaxScoreLight.value,
-					},
-					dark: {
-						bestTime: gameMaxTimeDark.dataset.seconds,
-						middleTime: gameMidTimeDark.dataset.seconds,
-						minScore: gameMinScoreDark.value,
-						maxScore: gameMaxScoreDark.value,
-					}
-				}
-			);
-
-			if (callLivesplit.checked) {
-				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
-			}
-		};
-		startDark.onclick = () => {
-			nodecg.sendMessage(
-				'startTimer',
-				{
-					category: 'dark',
-					light: {
-						bestTime: gameMaxTimeLight.dataset.seconds,
-						middleTime: gameMidTimeLight.dataset.seconds,
-						minScore: gameMinScoreLight.value,
-						maxScore: gameMaxScoreLight.value,
-					},
-					dark: {
-						bestTime: gameMaxTimeDark.dataset.seconds,
-						middleTime: gameMidTimeDark.dataset.seconds,
-						minScore: gameMinScoreDark.value,
-						maxScore: gameMaxScoreDark.value,
-					}
-				}
-			);
-
-			if (callLivesplit.checked) {
-				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
-			}
-		};
 		stop.onclick = () => {
 			nodecg.sendMessage('stopTimer');
 
-			if ('resume' === pause.dataset.todo) {
-				pause.dataset.todo = 'pause';
+			if ('start' !== startPause.dataset.todo) {
+				startPause.dataset.todo = 'start';
 
 				$animation.attr({
-					"from": pauseSvg,
-					"to": playSvg
+					"from": playSvg,
+					"to": pauseSvg
 				}).get(0).beginElement();
 			}
 
@@ -272,21 +238,50 @@
 				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'reset');
 			}
 		};
-
-		pause.onclick = () => {
-			if ('pause' === pause.dataset.todo) {
+		startPause.onclick = () => {
+			if ('pause' === startPause.dataset.todo) {
 				nodecg.sendMessage('pauseTimer');
 
 				if (callLivesplit.checked) {
 					nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'pause');
 				}
 
-				pause.dataset.todo = 'resume';
+				startPause.dataset.todo = 'resume';
 
 				$animation.attr({
 					"from": playSvg,
 					"to": pauseSvg
 				}).get(0).beginElement();
+			} else if ('start' === startPause.dataset.todo) {
+				nodecg.sendMessage(
+					'startTimer',
+					{
+						category: categoryChoice,
+						light: {
+							bestTime: gameMaxTimeLight.dataset.seconds,
+							middleTime: gameMidTimeLight.dataset.seconds,
+							minScore: gameMinScoreLight.value,
+							maxScore: gameMaxScoreLight.value,
+						},
+						dark: {
+							bestTime: gameMaxTimeDark.dataset.seconds,
+							middleTime: gameMidTimeDark.dataset.seconds,
+							minScore: gameMinScoreDark.value,
+							maxScore: gameMaxScoreDark.value,
+						}
+					}
+				);
+
+				startPause.dataset.todo = 'pause';
+
+				$animation.attr({
+					"from": pauseSvg,
+					"to": playSvg
+				}).get(0).beginElement();
+
+				if (callLivesplit.checked) {
+					nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
+				}
 			} else {
 				nodecg.sendMessage('resumeTimer');
 
@@ -294,7 +289,7 @@
 					nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'resume');
 				}
 
-				pause.dataset.todo = 'pause';
+				startPause.dataset.todo = 'pause';
 
 				$animation.attr({
 					"from": pauseSvg,
@@ -304,33 +299,28 @@
 		};
 
 		//[PB]
-		sendPBLight.onclick = () => {
-			nodecg.sendMessage(
-				'showPB',
-				{
-					color: gameColor.value,
-					game: gameSelect.value,
-					category: gameCategoryLight.value,
-					score: parseInt(PbLightScore.value),
-					time: PbLightTime.value,
-					glyph: {
-						width: gameSvg.dataset.width,
-						path: gameSvgPath.getAttribute('d')
-					}
-				}
-			);
+		sendPB.onclick = () => {
+			let category = '';
+			let score = 0;
+			let time = '99:99:99';
+			if ('light' === categoryChoice) {
+				category = gameCategoryLight.value;
+				score = parseInt(PbLightScore.value);
+				time = PbLightTime.value;
+			} else {
+				category = gameCategoryDark.value;
+				score = parseInt(PbDarkScore.value);
+				time = PbDarkTime.value;
+			}
 
-			sendGameGlyph(gameSelect.value, seasonInput.value);
-		};
-		sendPBDark.onclick = () => {
 			nodecg.sendMessage(
 				'showPB',
 				{
 					color: gameColor.value,
 					game: gameSelect.value,
-					category: gameCategoryDark.value,
-					score: parseInt(PbDarkScore.value),
-					time: PbDarkTime.value,
+					category: category,
+					score: score,
+					time: time,
 					glyph: {
 						width: gameSvg.dataset.width,
 						path: gameSvgPath.getAttribute('d')
@@ -457,6 +447,29 @@
 			PbDarkScore.value = darkScore;
 			PbDarkTime.value = darkTime;
 		});
+
+		lightDarkBox.onchange = () => {
+			getCategoryStatus();
+
+			if ('light' === categoryChoice) {
+				categoryDivLight.classList.remove('hidden');
+				PBDivLight.classList.remove('hidden');
+
+				categoryDivDark.classList.add('hidden');
+				PBDivDark.classList.add('hidden');
+			} else {
+				categoryDivLight.classList.add('hidden');
+				PBDivLight.classList.add('hidden');
+
+				categoryDivDark.classList.remove('hidden');
+				PBDivDark.classList.remove('hidden');
+			}
+		}
 	});
+
+	function getCategoryStatus()
+	{
+		categoryChoice = lightDarkBox.checked ? 'dark' : 'light';
+	}
 </script>
 </html>

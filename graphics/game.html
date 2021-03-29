@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+<div class="container">
+	<div id="gameInfos">
+			<span id="gameSvg">
+				<svg id="svgDisplay" viewBox="0,0,1000,1000" height="300" width="300">
+					<path id="gameSvgPath" d=""  fill="#FFFFFF"/>
+				</svg>
+			</span>
+		<span id="gameName"><b></b></span>
+		<span id="gameCategory"><b></b></span>
+	</div>
+</div>
+</body>
+
+<script>
+	const svgDisplay = document.querySelector('#svgDisplay');
+	const gameSvgPath = document.querySelector('#gameSvgPath');
+	const gameName = document.querySelector('#gameName');
+	const gameCategory = document.querySelector('#gameCategory');
+
+	nodecg.listenFor('showPB', (infos) => {
+		// svgDisplay.setAttribute('viewBox', '0,0,' + infos.glyph.width + ',' + infos.glyph.width);
+		gameSvgPath.setAttribute('d', infos.glyph.path);
+		gameName.innerHTML = infos.game;
+		gameCategory.innerHTML = infos.category;
+	});
+</script>
+</html>

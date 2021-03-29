@@ -1,0 +1,73 @@
+/***/
+/*{*/
+/*	user-select: none;*/
+/*	-webkit-tap-highlight-color:transparent;*/
+/*}*/
+
+/*input[type="checkbox"] {*/
+/*	display: none;*/
+/*}*/
+
+/*#button {*/
+/*	position: relative;*/
+/*	display: block;*/
+/*	width: 700px;*/
+/*	height: 350px;*/
+/*	background-color: #000000;*/
+/*	border-radius: 350px;*/
+/*	border: 10px solid #000000;*/
+/*	cursor: pointer;*/
+/*	transform: scale(0.2);*/
+/*	margin: 50px auto;*/
+/*	transition: 0.2s ease background-color;*/
+/*}*/
+
+/*#knob {*/
+/*	width: 290px;*/
+/*	height: 290px;*/
+/*	background-color: #FFFFFF;*/
+/*	background-size: 700px;*/
+/*	position: relative;*/
+/*	top: 30px;*/
+/*	left: 30px;*/
+/*	border-radius: 290px;*/
+/*	transition: 0.2s ease left, 0.2s ease background-position, 0.2s ease background-color;*/
+/*	z-index: 2;*/
+/*}*/
+
+/*#light,*/
+/*#dark {*/
+/*	position: absolute;*/
+/*	top: 50%;*/
+/*	transform: translateY(-50%);*/
+/*	color: #fff;*/
+/*	font-size: 60px;*/
+/*	font-weight: bold;*/
+/*	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;*/
+/*	margin-left: 450px;*/
+/*	z-index: 1;*/
+/*}*/
+
+/*#dark {*/
+/*	margin-left: 30px;*/
+/*}*/
+
+/*#light {*/
+/*	margin-right: 0px;*/
+/*}*/
+
+/*#lightDarkBox:checked + #button #knob {*/
+/*	left: 380px;*/
+/*	background-position: -350px 0;*/
+/*	background-color: #000000;*/
+/*	border-color: 1px #000000 solid;*/
+/*}*/
+
+/*#lightDarkBox:checked + #button {*/
+/*	background-color: #FFFFFF;*/
+/*	border-color: 5px #000000 solid;*/
+/*}*/
+
+/*#lightDarkBox:checked + #light, #dark {*/
+/*	color: #000000;*/
+/*}*/
