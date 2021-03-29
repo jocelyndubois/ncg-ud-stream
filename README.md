@@ -34,9 +34,10 @@ nodecg setup
 
 ## Installation :
 1. `nodecg install jocelyndubois/ncg-ud-stream`. 
-2. `cd nodecg/bundles/ncg-ud-stream`
+2. `cd bundles/ncg-ud-stream`
 3. `nodecg defaultconfig` ceci va créer un fichier ncg-ud-stream.json dans `nodecg/cfg`
 4. Editez le fichier en question et mettez votre identifiant UD à la place de `RUNNER-NAME`
+5. Depuis le dossier nodecg `nodecg start`
 
 ## Livesplit
 Ce bundle inclus une reprise du travail de EwanLyon sur l'intégration de Livesplit.
