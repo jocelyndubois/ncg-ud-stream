@@ -106,11 +106,13 @@
 			<h4>Display PB and category:</h4>
 			<a class="btn btn-light" id="sendPBLight">LIGHT</a>
 			<a class="btn btn-dark" id="sendPBDark">DARK</a>
-			<a class="btn btn-secondary" id="sendPBAgg">BOTH</a>
 			<a class="btn btn-danger" id="hidePB">HIDE</a>
 		</div>
 		<div class="col-4">
 			<h4>Chrono</h4>
+			<label for="callLivesplit">Use Livesplit ?</label>
+			<input id="callLivesplit" type="checkbox" checked />
+			</br>
 			<a class="btn btn-light" id="startLight">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 26 26">
 					<polygon class="play-btn__svg" points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69"/>
@@ -149,9 +151,10 @@
 	const seasonInput = document.querySelector('#seasonInput');
 	const fetchGamesButton = document.querySelector('#fetchGamesButton');
 
+	const callLivesplit = document.querySelector('#callLivesplit');
+
 	const sendPBLight = document.querySelector('#sendPBLight');
 	const sendPBDark = document.querySelector('#sendPBDark');
-	const sendPBAgg = document.querySelector('#sendPBAgg');
 	const hidePB = document.querySelector('#hidePB');
 
 	const startLight = document.querySelector('#startLight');
@@ -180,6 +183,16 @@
 	const PbLightTime = document.querySelector('#PbLightTime');
 	const PbDarkScore = document.querySelector('#PbDarkScore');
 	const PbDarkTime = document.querySelector('#PbDarkTime');
+
+	livesplitConnection.on('change', (connectionStatus) => {
+		if (connectionStatus) {
+			callLivesplit.checked = true;
+			callLivesplit.disabled = false;
+		} else {
+			callLivesplit.checked = false;
+			callLivesplit.disabled = true;
+		}
+	});
 
 	let flip = true,
 		pauseSvg = "M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28",
@@ -215,7 +228,9 @@
 				}
 			);
 
-			nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
+			if (callLivesplit.checked) {
+				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
+			}
 		};
 		startDark.onclick = () => {
 			nodecg.sendMessage(
@@ -237,19 +252,34 @@
 				}
 			);
 
-			nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
+			if (callLivesplit.checked) {
+				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'starttimer');
+			}
 		};
 		stop.onclick = () => {
 			nodecg.sendMessage('stopTimer');
 
-			nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'reset');
+			if ('resume' === pause.dataset.todo) {
+				pause.dataset.todo = 'pause';
+
+				$animation.attr({
+					"from": pauseSvg,
+					"to": playSvg
+				}).get(0).beginElement();
+			}
+
+			if (callLivesplit.checked) {
+				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'reset');
+			}
 		};
 
 		pause.onclick = () => {
 			if ('pause' === pause.dataset.todo) {
 				nodecg.sendMessage('pauseTimer');
 
-				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'pause');
+				if (callLivesplit.checked) {
+					nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'pause');
+				}
 
 				pause.dataset.todo = 'resume';
 
@@ -260,7 +290,9 @@
 			} else {
 				nodecg.sendMessage('resumeTimer');
 
-				nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'resume');
+				if (callLivesplit.checked) {
+					nodecg.sendMessageToBundle('livesplit:sendAction', 'ncg-ud-stream', 'resume');
+				}
 
 				pause.dataset.todo = 'pause';
 
@@ -299,39 +331,6 @@
 					category: gameCategoryDark.value,
 					score: parseInt(PbDarkScore.value),
 					time: PbDarkTime.value,
-					glyph: {
-						width: gameSvg.dataset.width,
-						path: gameSvgPath.getAttribute('d')
-					}
-				}
-			);
-
-			sendGameGlyph(gameSelect.value, seasonInput.value);
-		};
-		sendPBAgg.onclick = () => {
-			let lightScore = parseInt(PbLightScore.value);
-			let darkScore = parseInt(PbDarkScore.value) ?? 0;
-			let lightTime = PbLightTime.value;
-			let darkTime = PbDarkTime.value;
-
-			let score;
-			let time;
-			if (lightScore > darkScore) {
-				score = lightScore;
-				time = lightTime;
-			} else {
-				score = darkScore;
-				time = darkTime;
-			}
-
-			nodecg.sendMessage(
-				'showPB',
-				{
-					color: gameColor.value,
-					game: gameSelect.value,
-					category: gameCategoryDark.value,
-					score: score,
-					time: time,
 					glyph: {
 						width: gameSvg.dataset.width,
 						path: gameSvgPath.getAttribute('d')
