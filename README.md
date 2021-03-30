@@ -17,15 +17,20 @@ Le site de l'evenement se trouve ici : https://www.ultimedecathlon.com/
 - Node.js v8.3 minimum
 - npm v2 minimum
 - nodecg-cli
+- bower
 
 ## Pré-installation:
 Si vous n'avez pas encore d'instance de nodecg d'installée :
 
-1. Télécharger et installer nodecg-cli
+1. Téléchargez et installez bower si ce n'est pas déjà fait.
+```shell
+npm install --global bower
+```
+2. Téléchargez et installez nodecg-cli si ce n'est pas déjà fait.
 ```shell
 npm install --global nodecg-cli
 ```
-2. Créez un nouveau dossier et initialisez nodecg
+3. Créez un nouveau dossier et initialisez nodecg
 ```shell
 mkdir nodecg
 cd nodecg
