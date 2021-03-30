@@ -1,0 +1,140 @@
+@font-face {
+  font-family: 'ud-games';
+  src: url('../../font/games/ud-games.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'ud-games';
+    src: url('../font/ud-games.svg?30045980#ud-games') format('svg');
+  }
+}
+*/
+
+ [class^="glyph-game-"]:before, [class*=" glyph-game-"]:before {
+  font-family: "ud-games";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.glyph-game-deadcore:before { content: '\e800'; } /* '' */
+.glyph-game-ducktales:before { content: '\e801'; } /* '' */
+.glyph-game-spelunky:before { content: '\e802'; } /* '' */
+.glyph-game-super-monkey-ball:before { content: '\e803'; } /* '' */
+.glyph-game-metroid-zero-mission:before { content: '\e804'; } /* '' */
+.glyph-game-towerfall-ascension:before { content: '\e805'; } /* '' */
+.glyph-game-ninja-gaiden-2:before { content: '\e806'; } /* '' */
+.glyph-game-portal:before { content: '\e807'; } /* '' */
+.glyph-game-doom-2:before { content: '\e808'; } /* '' */
+.glyph-game-gremlins-2:before { content: '\e809'; } /* '' */
+.glyph-game-mario-bros-2:before { content: '\e80a'; } /* '' */
+.glyph-game-trials-evolution:before { content: '\e80b'; } /* '' */
+.glyph-game-mega-man-x:before { content: '\e80c'; } /* '' */
+.glyph-game-left-4-dead-2:before { content: '\e80d'; } /* '' */
+.glyph-game-metal-slug-x:before { content: '\e80e'; } /* '' */
+.glyph-game-trackmania-nations-forever:before { content: '\e80f'; } /* '' */
+.glyph-game-super-ghouls-n-ghosts:before { content: '\e810'; } /* '' */
+.glyph-game-nuclear-throne:before { content: '\e811'; } /* '' */
+.glyph-game-lovely-planet:before { content: '\e812'; } /* '' */
+.glyph-game-castlevania:before { content: '\e813'; } /* '' */
+.glyph-game-dark-souls:before { content: '\e814'; } /* '' */
+.glyph-game-zelda-a-link-to-the-past:before { content: '\e815'; } /* '' */
+.glyph-game-maldita-castilla:before { content: '\e816'; } /* '' */
+.glyph-game-chip-n-dale-rescue-rangers:before { content: '\e817'; } /* '' */
+.glyph-game-refunct:before { content: '\e818'; } /* '' */
+.glyph-game-mega-man-2:before { content: '\e819'; } /* '' */
+.glyph-game-super-mario-world:before { content: '\e81a'; } /* '' */
+.glyph-game-mirrors-edge:before { content: '\e81b'; } /* '' */
+.glyph-game-nitronic-rush:before { content: '\e81c'; } /* '' */
+.glyph-game-kuru-kuru-kururin:before { content: '\e81d'; } /* '' */
+.glyph-game-actraiser:before { content: '\e81e'; } /* '' */
+.glyph-game-castlevania-iv:before { content: '\e81f'; } /* '' */
+.glyph-game-darkwing-duck:before { content: '\e820'; } /* '' */
+.glyph-game-devil-daggers:before { content: '\e821'; } /* '' */
+.glyph-game-ikaruga:before { content: '\e822'; } /* '' */
+.glyph-game-rayman-legends:before { content: '\e823'; } /* '' */
+.glyph-game-superhot:before { content: '\e824'; } /* '' */
+.glyph-game-cloudbuilt:before { content: '\e825'; } /* '' */
+.glyph-game-hammerwatch:before { content: '\e826'; } /* '' */
+.glyph-game-i-wanna-be-the-cat:before { content: '\e827'; } /* '' */
+.glyph-game-mariokart-double-dash:before { content: '\e828'; } /* '' */
+.glyph-game-quake:before { content: '\e829'; } /* '' */
+.glyph-game-steamworld-dig:before { content: '\e82a'; } /* '' */
+.glyph-game-super-metroid:before { content: '\e82b'; } /* '' */
+.glyph-game-super-monkey-ball-2:before { content: '\e82c'; } /* '' */
+.glyph-game-volgarr-the-viking:before { content: '\e82d'; } /* '' */
+.glyph-game-super-meat-boy:before { content: '\e82e'; } /* '' */
+.glyph-game-splasher:before { content: '\e82f'; } /* '' */
+.glyph-game-shovel-knight:before { content: '\e830'; } /* '' */
+.glyph-game-castlevania-aria-of-sorrow:before { content: '\e831'; } /* '' */
+.glyph-game-a-story-about-my-uncle:before { content: '\e832'; } /* '' */
+.glyph-game-cuphead:before { content: '\e833'; } /* '' */
+.glyph-game-spectraball:before { content: '\e834'; } /* '' */
+.glyph-game-donkey-kong-country:before { content: '\e835'; } /* '' */
+.glyph-game-trials-2:before { content: '\e836'; } /* '' */
+.glyph-game-inertia:before { content: '\e837'; } /* '' */
+.glyph-game-metal-slug:before { content: '\e838'; } /* '' */
+.glyph-game-the-end-is-nigh:before { content: '\e839'; } /* '' */
+.glyph-game-wrack:before { content: '\e83a'; } /* '' */
+.glyph-game-vvvvvv:before { content: '\e83b'; } /* '' */
+.glyph-game-trackmania2:before { content: '\e83c'; } /* '' */
+.glyph-game-the-messenger:before { content: '\e83d'; } /* '' */
+.glyph-game-out-there-somewhere:before { content: '\e83e'; } /* '' */
+.glyph-game-neo-turf-masters:before { content: '\e83f'; } /* '' */
+.glyph-game-minit:before { content: '\e840'; } /* '' */
+.glyph-game-megaman:before { content: '\e841'; } /* '' */
+.glyph-game-kirby:before { content: '\e842'; } /* '' */
+.glyph-game-lawn-mower:before { content: '\e843'; } /* '' */
+.glyph-game-action-henk:before { content: '\e844'; } /* '' */
+.glyph-game-another-perspective:before { content: '\e845'; } /* '' */
+.glyph-game-battleblock-theater:before { content: '\e846'; } /* '' */
+.glyph-game-bubble-ghost:before { content: '\e847'; } /* '' */
+.glyph-game-color-symphony-2:before { content: '\e848'; } /* '' */
+.glyph-game-extricate:before { content: '\e849'; } /* '' */
+.glyph-game-f-zero:before { content: '\e84a'; } /* '' */
+.glyph-game-heavy-bullets:before { content: '\e84b'; } /* '' */
+.glyph-game-magical-quest:before { content: '\e84c'; } /* '' */
+.glyph-game-skyblazer:before { content: '\e84d'; } /* '' */
+.glyph-game-ghoulsn-ghosts:before { content: '\e84f'; } /* '' */
+.glyph-game-hamsterball:before { content: '\e850'; } /* '' */
+.glyph-game-kururin-squash:before { content: '\e851'; } /* '' */
+.glyph-game-mintroid:before { content: '\e852'; } /* '' */
+.glyph-game-super-monkey-ball-adventure:before { content: '\e853'; } /* '' */
+.glyph-game-steamworld-dig-2:before { content: '\e854'; } /* '' */
+.glyph-game-trials-fusion:before { content: '\e855'; } /* '' */
+.glyph-game-vectronom:before { content: '\e856'; } /* '' */
+.glyph-game-hollow-knight:before { content: '\e85a'; } /* '' */
+.glyph-game-unworthy:before { content: '\e85b'; } /* '' */

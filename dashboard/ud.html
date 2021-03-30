@@ -35,9 +35,7 @@
 			<input disabled type="text" class="form-control" id="gameColor">
 		</div>
 		<div class="col-md-2">
-			<svg id="gameSvg" data-width="1000" viewBox="0,0,1000,1000" height="75" width="75">
-				<path id="gameSvgPath" d="" fill="#FFFFFF"/>
-			</svg>
+			<span class="glyph" id="game-glyph"></span>
 		</div>
 		<div class="col-6">
 			<label for="lightDarkBox" class="form-label">Light/Dark</label>
@@ -165,8 +163,7 @@
 
 	const gameName = document.querySelector('#gameName');
 	const gameColor = document.querySelector('#gameColor');
-	const gameSvg = document.querySelector('#gameSvg');
-	const gameSvgPath = document.querySelector('#gameSvgPath');
+	const glyph = document.querySelector('#game-glyph');
 	const gameCategoryLight = document.querySelector('#gameCategoryLight');
 	const gameCategoryDark = document.querySelector('#gameCategoryDark');
 	const gameMaxTimeLight = document.querySelector('#gameMaxTimeLight');
@@ -330,11 +327,7 @@
 					game: gameSelect.value,
 					category: category,
 					score: score,
-					time: time,
-					glyph: {
-						width: gameSvg.dataset.width,
-						path: gameSvgPath.getAttribute('d')
-					}
+					time: time
 				}
 			);
 
@@ -406,9 +399,8 @@
 			gameColor.value = infos.hexColor;
 			gameColor.style.backgroundColor = '#' + infos.hexColor;
 			gameColor.style.color = 'white';
-			// gameSvg.setAttribute('viewBox', '0,0,' + infos.pathInformation.width + ',' + infos.pathInformation.width);
-			gameSvg.dataset.width = infos.pathInformation.width;
-			gameSvgPath.setAttribute('d', infos.pathInformation.path);
+			glyph.setAttribute('class', '');
+			glyph.classList.add('glyph-game-' + string_to_slug(infos.name));
 
 			gameCategoryLight.value = infos.light.category;
 			gameCategoryDark.value = infos.dark.category;

@@ -1,7 +1,7 @@
 const season = nodecg.Replicant('season');
 const game = nodecg.Replicant('game');
 
-const gamesGlyph = nodecg.Replicant('gamesGlyph');
+const fetchGamesListReplicant = nodecg.Replicant('fetchGamesList');
 
 const songRep = nodecg.Replicant('currentSong', 'ncg-spotify');
 

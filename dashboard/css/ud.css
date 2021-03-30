@@ -6,6 +6,10 @@
 	height: 34px;
 }
 
+#game-glyph {
+	font-size: 4em;
+}
+
 /* Hide default HTML checkbox */
 .switch input {
 	opacity: 0;

@@ -1,8 +1,7 @@
 const player = document.querySelector('#player');
 const gameFrame = document.querySelector('#gameFrame');
 
-const glyph = document.querySelector('#glyph');
-const gameSvgPath = document.querySelector('#gameSvgPath');
+const glyph = document.querySelector('#game-glyph');
 
 const PBDiv = document.querySelector('#PB-div');
 const gameDiv = document.querySelector('#game-infos');
@@ -25,8 +24,8 @@ nodecg.listenFor('showPB', async infos => {
 	pbScore.innerText = infos.score;
 	pbTime.innerText = infos.time;
 
-	// glyph.setAttribute('viewBox', '0,0,' + infos.glyph.width + ',' + infos.glyph.width);
-	gameSvgPath.setAttribute('d', infos.glyph.path);
+	glyph.setAttribute('class', '');
+	glyph.classList.add('glyph-game-' + string_to_slug(infos.game));
 
 	title.innerText = infos.game;
 	category.innerText = infos.category;

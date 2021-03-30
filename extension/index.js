@@ -56,7 +56,6 @@ module.exports = function (nodecg) {
 	});
 
 	const fetchGamesListReplicant = nodecg.Replicant('fetchGamesList');
-	const gamesGlyph = nodecg.Replicant('gamesGlyph');
 	nodecg.listenFor('fetchGamesList', async query => {
 		try {
 			let results = [];
@@ -69,7 +68,7 @@ module.exports = function (nodecg) {
 
 			const apiResponse = await axios.get(graphUrl, {
 				params: {
-					query: 'query getGames {  activeSeasonGames (season: ' + query + ', groupment: "' + groupment + '") {    name pathInformation {      path      width    } }}',
+					query: 'query getGames {  activeSeasonGames (season: ' + query + ', groupment: "' + groupment + '") {    name }}',
 				}
 			});
 
@@ -83,7 +82,6 @@ module.exports = function (nodecg) {
 				})
 
 				fetchGamesListReplicant.value = results;
-				gamesGlyph.value = glyphs;
 			}
 		} catch (error) {
 			nodecg.log.error(error);
