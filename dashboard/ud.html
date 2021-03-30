@@ -123,6 +123,9 @@
 			<label for="callLivesplit">Use Livesplit ?</label>
 			<input id="callLivesplit" type="checkbox" checked />
 			</br>
+			<label for="enableSound">Coundown sound ?</label>
+			<input id="enableSound" type="checkbox" checked />
+			</br>
 			<input type="number" class="form-control" id="delay" placeholder="delay"/>
 			</br>
 			<a class="btn btn-primary" data-todo="start" id="startPause">
@@ -191,6 +194,7 @@
 	const lightDarkBox = document.querySelector('#lightDarkBox');
 
 	const delay = document.querySelector('#delay');
+	const delaySound = document.querySelector('#enableSound');
 
 	let categoryChoice;
 
@@ -257,6 +261,7 @@
 						'preTimer',
 						{
 							delay: delay.value,
+							delaySound: delaySound.checked,
 							color: gameColor.value,
 						}
 					);

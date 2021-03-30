@@ -1,10 +1,11 @@
 html,body {
 	height:100%;
-	/*background-color: #B5B7B4;*/
+	/* background-color: #050505; */
 	overflow: hidden;
 }
 .container {
-	width: 1024px;
+	width: 1920px;
+	padding: 10px;
 	overflow: hidden;
 	position: absolute;
 	top: 0;
@@ -15,7 +16,7 @@ html,body {
 }
 
 .container>span {
-	font-size: 4em;
+	font-size: 6em;
 	color: white;
 	opacity: 0.4;
 }
@@ -23,7 +24,25 @@ html,body {
 .container>span.selected {
 	color: #FFBF00;
 	opacity: 0.8;
+	animation: glow 2s ease-in-out infinite alternate;
 }
+
+
+
+.svgPath.selected {
+	color: #dc540a;
+	animation: glow 2s ease-in-out infinite alternate;
+
+}
+
+
+
+@keyframes glow {
+	0% {
+	  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 2px #dc540a, 0 0 5px #dc540a,
+		0 0 10px #dc540a;
+	}
+  }
 
 .odd {
 	align-self: center;

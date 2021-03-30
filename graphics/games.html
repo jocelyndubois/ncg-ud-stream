@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" href="css/global.css">
-	<link rel="stylesheet" href="css/games.css">
+  <head>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/games.css" />
+    <link rel="stylesheet" href="css/UD9.css" />
 
-	<script type="text/javascript" src="js/replicants.js"></script>
-	<script type="text/javascript" src="js/utils.js"></script>
-</head>
-<body>
-	<div class="container">
-		<span id="svgDisplay-1"></span>
-		<span class="odd" id="svgDisplay-2"></span>
-		<span id="svgDisplay-3"></span>
-		<span class="odd" id="svgDisplay-4"></span>
-		<span id="svgDisplay-5"></span>
-		<span class="odd" id="svgDisplay-6"></span>
-		<span id="svgDisplay-7"></span>
-		<span class="odd" id="svgDisplay-8"></span>
-		<span id="svgDisplay-9"></span>
-		<span class="odd" id="svgDisplay-10"></span>
-	</div>
-</body>
+    <script type="text/javascript" src="js/replicants.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <span id="svgDisplay-1"></span>
+      <span class="odd" id="svgDisplay-2"></span>
+      <span id="svgDisplay-3"></span>
+      <span class="odd" id="svgDisplay-4"></span>
+      <span id="svgDisplay-5"></span>
+      <span class="odd" id="svgDisplay-6"></span>
+      <span id="svgDisplay-7"></span>
+      <span class="odd" id="svgDisplay-8"></span>
+      <span id="svgDisplay-9"></span>
+      <span class="odd" id="svgDisplay-10"></span>
+    </div>
+  </body>
 
-<script>
-	const display1 = document.querySelector('#svgDisplay-1');
-	const display2 = document.querySelector('#svgDisplay-2');
-	const display3 = document.querySelector('#svgDisplay-3');
-	const display4 = document.querySelector('#svgDisplay-4');
-	const display5 = document.querySelector('#svgDisplay-5');
-	const display6 = document.querySelector('#svgDisplay-6');
-	const display7 = document.querySelector('#svgDisplay-7');
-	const display8 = document.querySelector('#svgDisplay-8');
-	const display9 = document.querySelector('#svgDisplay-9');
-	const display10 = document.querySelector('#svgDisplay-10');
+  <script>
+    const display1 = document.querySelector("#svgDisplay-1");
+    const display2 = document.querySelector("#svgDisplay-2");
+    const display3 = document.querySelector("#svgDisplay-3");
+    const display4 = document.querySelector("#svgDisplay-4");
+    const display5 = document.querySelector("#svgDisplay-5");
+    const display6 = document.querySelector("#svgDisplay-6");
+    const display7 = document.querySelector("#svgDisplay-7");
+    const display8 = document.querySelector("#svgDisplay-8");
+    const display9 = document.querySelector("#svgDisplay-9");
+    const display10 = document.querySelector("#svgDisplay-10");
 
-	nodecg.listenFor('sendGames', (game) => {
-		let games = fetchGamesListReplicant.value;
-		console.log(games);
-		for (let i = 0; i < games.length; i++) {
-			let display = eval('display' + (i+1));
+    nodecg.listenFor("sendGames", (game) => {
+      let games = fetchGamesListReplicant.value;
+      console.log(games);
+      for (let i = 0; i < games.length; i++) {
+        let display = eval("display" + (i + 1));
 
-			display.setAttribute('class', '');
-			if (i%2 !== 0) {
-				display.classList.add('odd');
-			}
-			display.classList.add('glyph-game-' + string_to_slug(games[i]));
+        display.setAttribute("class", "");
+        if (i % 2 !== 0) {
+          display.classList.add("odd");
+        }
+        display.classList.add("glyph-game-" + string_to_slug(games[i]));
 
-			if (game === games[i]) {
-				display.classList.add('selected')
-			} else {
-				display.classList.remove('selected')
-			}
-		}
-	});
-
-
-</script>
+        if (game === games[i]) {
+          display.classList.add("selected");
+        } else {
+          display.classList.remove("selected");
+        }
+      }
+    });
+  </script>
 </html>
