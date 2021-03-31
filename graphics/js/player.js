@@ -34,10 +34,17 @@ nodecg.listenFor('showPB', async infos => {
 		fontSize = '0.7em';
 	}
 
+	let catFontSize = '1em';
+	let categoryName = infos.category;
+	if ('All Beginner + Advanced Challenge levels' === categoryName) {
+		categoryName = 'All Beginner + Advanced';
+		catFontSize = '0.5em';
+	}
+
 	title.innerText = gameName;
 	title.style.fontSize = fontSize;
-	category.innerText = infos.category;
-	category.style.fontSize = fontSize;
+	category.innerText = categoryName;
+	category.style.fontSize = catFontSize;
 	gameDiv.removeAttribute('class');
 	gameDiv.classList.add('third')
 	gameDiv.classList.add('runner')
