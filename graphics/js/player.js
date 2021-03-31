@@ -27,8 +27,17 @@ nodecg.listenFor('showPB', async infos => {
 	glyph.setAttribute('class', '');
 	glyph.classList.add('glyph-game-' + string_to_slug(infos.game));
 
-	title.innerText = infos.game;
+	let gameName = infos.game;
+	let fontSize = '1em';
+	if ('Super Monkey Ball Adventure' === gameName) {
+		gameName = 'SMB Adventure';
+		fontSize = '0.7em';
+	}
+
+	title.innerText = gameName;
+	title.style.fontSize = fontSize;
 	category.innerText = infos.category;
+	category.style.fontSize = fontSize;
 	gameDiv.removeAttribute('class');
 	gameDiv.classList.add('third')
 	gameDiv.classList.add('runner')
