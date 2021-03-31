@@ -69,6 +69,7 @@ html,body {
 	top: 60px;
 	margin: 0 auto;
 	text-align: center;
+	-webkit-text-stroke: 2px black;
 }
 
 .score {
@@ -80,6 +81,7 @@ html,body {
 
 #scoreLight {
 	color: white;
+	-webkit-text-stroke: 2px black;
 }
 
 #scoreDark {
