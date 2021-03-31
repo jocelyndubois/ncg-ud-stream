@@ -84,6 +84,7 @@ html,body {
 
 #scoreDark {
 	color: black;
+	-webkit-text-stroke: 2px white;
 }
 
 .score.blink {
