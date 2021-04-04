@@ -39,8 +39,7 @@ nodecg setup
 
 ## Installation :
 1. `nodecg install jocelyndubois/ncg-ud-stream`. 
-2. `cd bundles/ncg-ud-stream`
-3. Depuis le dossier nodecg `nodecg start`
+2. `nodecg start`
 
 ## Première utilisaton :
 1. Renseigner une saison (> 6) dans le champ `Season` du panneau `UD`
