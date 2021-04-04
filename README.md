@@ -1,7 +1,7 @@
 # NodeCG - Ultime Decathlon Personnal stream tool.
 
 <p align="center">
-  <img src="https://github.com/jocelyndubois/ncg-ud-stream/blob/main/media/UD_Tool.png?raw=true">
+  <img src="https://github.com/jocelyndubois/ncg-ud-stream/blob/main/media/UD_Tool_screen.png?raw=true">
 </p>
 
 L'Ultime Décathlon est une compétition de speedrun saisonnière ou le but est d'apprendre et maitriser 10 speedruns.
@@ -40,9 +40,15 @@ nodecg setup
 ## Installation :
 1. `nodecg install jocelyndubois/ncg-ud-stream`. 
 2. `cd bundles/ncg-ud-stream`
-3. `nodecg defaultconfig` ceci va créer un fichier ncg-ud-stream.json dans `nodecg/cfg`
-4. Editez le fichier en question et mettez votre identifiant UD à la place de `RUNNER-NAME`
-5. Depuis le dossier nodecg `nodecg start`
+3. Depuis le dossier nodecg `nodecg start`
+
+## Première utilisaton :
+1. Renseigner une saison (> 6) dans le champ `Season` du panneau `UD`
+2. Rendez vous dans l'onglet `SETUP` et sélectionnez votre nom dans la liste.
+3. Profitez en pour régler les options disponnibles. Les choix seront sauvegardés.
+
+## Doc :
+La doc du projet est dispo [ici](https://github.com/jocelyndubois/ncg-ud-stream/wiki)
 
 ## Livesplit
 Ce bundle inclus une reprise du travail de EwanLyon sur l'intégration de Livesplit.

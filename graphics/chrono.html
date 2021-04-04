@@ -76,10 +76,16 @@
 	// Create "start", "pause" and "reset" functions
 	function start() {
 		startTime = Date.now() - elapsedTime;
-		timerInterval = setInterval(function printTime() {
-			elapsedTime = Date.now() - startTime;
-			parseAndDisplay();
-		}, 10);
+		if (syncReplicant.value) {
+			timerInterval = setInterval(function printTime() {
+				syncAndDisplay()
+			}, 100);
+		} else {
+			timerInterval = setInterval(function printTime() {
+				elapsedTime = Date.now() - startTime;
+				parseAndDisplay();
+			}, 10);
+		}
 	}
 
 	function parseAndDisplay()
@@ -88,14 +94,23 @@
 		updateScore(elapsedTime);
 	}
 
-	function pause() {
+	function syncAndDisplay()
+	{
+		getLivesplitTime();
+		updateScore(elapsedTime);
+	}
+
+	function pause()
+	{
 		clearInterval(timerInterval);
 
+		getLivesplitTime();
+	}
+
+	function getLivesplitTime()
+	{
 		nodecg.sendMessageToBundle('livesplit:sendData', 'ncg-ud-stream', 'getcurrenttime', (finalTime) => {
 			elapsedTime = hmsToSecondsOnly(finalTime) * 1000;
-			console.log(hmsToSecondsOnly(finalTime));
-			console.log(finalTime);
-			console.log(elapsedTime);
 			parseAndDisplay();
 		});
 	}

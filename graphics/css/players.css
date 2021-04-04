@@ -28,7 +28,7 @@ html,body {
 	border-right: 11px solid;
 	border-bottom: 12px solid;
 	border-radius: 0px 0px 25px 25px;
-	border-color: #FF0000;
+	border-color: #000000;
 }
 
 .player-banner {
@@ -39,7 +39,7 @@ html,body {
 }
 
 #player {
-	background-color: #FF0000;
+	background-color: #000000;
 	color: white;
 	display: flex;
 }

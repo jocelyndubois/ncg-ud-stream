@@ -21,8 +21,13 @@ nodecg.listenFor('showPB', async infos => {
 	player.style.backgroundColor = '#' + infos.color;
 	gameFrame.style.borderColor = '#' + infos.color;
 
-	pbScore.innerText = infos.score;
-	pbTime.innerText = infos.time;
+	if ('' !== infos.time) {
+		pbScore.innerText = infos.score + 'pts';
+		pbTime.innerText = infos.time;
+	} else {
+		pbScore.innerText = '-/-';
+		pbTime.innerText = '';
+	}
 
 	glyph.setAttribute('class', '');
 	glyph.classList.add('glyph-game-' + string_to_slug(infos.game));

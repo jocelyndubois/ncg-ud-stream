@@ -17,7 +17,13 @@ function string_to_slug (str) {
 }
 
 function hmsToSecondsOnly(str) {
-	var p = str.split(':'),
+	let time = str.split('\n').shift();
+
+	time = time.split('.');
+	let millisec = parseFloat('0.' + time.pop());
+	time = time.shift();
+
+	var p = time.split(':'),
 		s = 0, m = 1;
 
 	while (p.length > 0) {
@@ -25,7 +31,7 @@ function hmsToSecondsOnly(str) {
 		m *= 60;
 	}
 
-	return s;
+	return s+millisec;
 }
 
 function sleep (time) {
