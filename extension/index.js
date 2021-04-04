@@ -17,7 +17,11 @@ module.exports = function (nodecg) {
 	const graphUrl = 'https://www.ultimedecathlon.com/graphql';
 
 	const runnerName = nodecg.Replicant('runnerName');
-	const udRunner = runnerName.value;
+	let udRunner = runnerName.value;
+
+	runnerName.on('change', () => {
+		udRunner = runnerName.value;
+	});
 
 	const fetchPbsReplicant = nodecg.Replicant('fetchPbs');
 	nodecg.listenFor('fetchPbs', async query => {
