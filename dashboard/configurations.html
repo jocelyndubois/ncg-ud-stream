@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/global.css">
+
+	<script type="text/javascript" src="js/replicants.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<label for="runnerId" class="form-label">Runner :</label>
+				<input type="text" id="noRunner" value="FIRST, SET A SEASON IN THE MAIN WORKSPACE" class="form-control form-input" disabled>
+				<select disabled id="runnerId" class="hidden name-select form-control form-select form-select-sm" type="text" placeholder="pseudo"></select>
+			</div>
+		</div>
+		</br>
+		<div class="row">
+			<div class="col">
+				<label for="autoSend">Auto send ?</label>
+				<input id="autoSend" type="checkbox" />
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	const runnerId = document.querySelector('#runnerId');
+	const noRunner = document.querySelector('#noRunner');
+	const autoSend = document.querySelector('#autoSend');
+
+	//[FETCH RUNNERS]
+	runnerListReplicant.on('change', (runners) => {
+		if (!runners) {
+			return;
+		}
+
+		if (runnerId.options) {
+			//First, we clear the old runner list.
+			let length = runnerId.options.length;
+			for (let i = length-1; i >= 0; i--) {
+				runnerId.options[i].remove();
+			}
+		}
+
+		//We had the empty option
+		let opt = document.createElement("option");
+		opt.value = null;
+		if (!runnerName.value) {
+			opt.selected = true;
+		}
+		runnerId.add(opt);
+
+		//Then we add the new one.
+		for (let i = 0; i < runners.length; i++) {
+			addOption(runnerId, runners[i]);
+		}
+
+		noRunner.classList.add('hidden');
+		runnerId.classList.remove('hidden');
+		runnerId.removeAttribute('disabled');
+	})
+
+	//[AUTO-SEND]
+	autoSendReplicant.on('change', () => {
+		if (autoSendReplicant.value) {
+			autoSend.checked = true;
+		} else {
+			autoSend.checked = false;
+		}
+	});
+	autoSend.onchange = () => {
+		autoSendReplicant.value = autoSend.checked;
+	};
+
+	season.on('change', () => {
+		fetchRunnersList();
+	});
+
+	runnerId.onchange = () => {
+		runnerName.value = runnerId.value;
+	};
+
+	function fetchRunnersList() {
+		nodecg.sendMessage(
+			'fetchRunnersList',
+			{
+				season: season.value
+			}
+		);
+	}
+
+	function addOption(select, runner) {
+		let displayName = runner.alias ? runner.alias : runner.username;
+		let opt = document.createElement("option");
+		opt.value = runner.username;
+		opt.text = displayName;
+		if (runner.username === runnerName.value) {
+			opt.selected = true;
+		}
+
+		select.add(opt);
+	}
+</script>
+</html>

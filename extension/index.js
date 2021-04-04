@@ -14,11 +14,10 @@ ipc.config.retry = 1000;
 ipc.config.maxRetries = serverRetries;
 
 module.exports = function (nodecg) {
-	const runnerName = nodecg.Replicant('runnerName');
-	let udRunner = nodecg.bundleConfig.udRunner;
-	runnerName.value = nodecg.bundleConfig.udRunner;
-
 	const graphUrl = 'https://www.ultimedecathlon.com/graphql';
+
+	const runnerName = nodecg.Replicant('runnerName');
+	const udRunner = runnerName.value;
 
 	const fetchPbsReplicant = nodecg.Replicant('fetchPbs');
 	nodecg.listenFor('fetchPbs', async query => {
@@ -50,8 +49,35 @@ module.exports = function (nodecg) {
 			}
 
 			fetchPbsReplicant.value = results;
+
+			nodecg.log.info('PB Fetched.');
 		} catch (error) {
-			nodecg.log.error(error);
+			nodecg.log.error('ERROR while fetching the PB list.');
+		}
+	});
+
+	const runnerListReplicant = nodecg.Replicant('runnerList');
+	nodecg.listenFor('fetchRunnersList', async query => {
+		try {
+			let results = [];
+
+			const apiResponse = await axios.get(graphUrl, {
+				params: {
+					query: 'query AllRunners {  activeSeasonUsers(season: ' + query.season + ', paginator: {page: 1, nbPerPage: 1000}) {    totalPages    data {      id      username      alias      pronouns    }  }}'
+				}
+			});
+
+			if (apiResponse.data.data.activeSeasonUsers.data) {
+				apiResponse.data.data.activeSeasonUsers.data.forEach(function(runner){
+					results.push(runner);
+				})
+			}
+
+			runnerListReplicant.value = results;
+
+			nodecg.log.info('Runner list fetched.');
+		} catch (error) {
+			nodecg.log.error('ERROR while fetching the runner list for the season ' + query.season);
 		}
 	});
 
@@ -83,8 +109,10 @@ module.exports = function (nodecg) {
 
 				fetchGamesListReplicant.value = results;
 			}
+
+			nodecg.log.info('Games list fetched for season ' + query);
 		} catch (error) {
-			nodecg.log.error(error);
+			nodecg.log.error('ERROR while fetching the games list.');
 		}
 	});
 
@@ -109,47 +137,12 @@ module.exports = function (nodecg) {
 			gameResult = aggregateGameInfos(query, apiResponseDark.data.data.activeSeasonGames, gameResult);
 
 			gameInfos.value = gameResult;
+
+			nodecg.log.info('Game infos fetched.');
 		} catch (error) {
-			nodecg.log.error(error);
+			nodecg.log.error('ERROR while fetching the game infos');
 		}
 	});
-
-	// const fetchPbAggregatedListReplicant = nodecg.Replicant('fetchPbAggregatedList');
-	// nodecg.listenFor('fetchPbAggregatedList', async query => {
-	// 	try {
-	// 		let results = {};
-	//
-	// 		for (const [key, player] of Object.entries(query.players)) {
-	// 			const apiResponse = await axios.get(graphUrl, {
-	// 				params: {
-	// 					query: 'query AllPBs {  userCardInformations(season: ' + query.season + ', username: "' + player + '", showEmptyPb: true) {    pbList {      game {        name        groupment      }      time      score    }  }}'
-	// 				}
-	// 			});
-	//
-	// 			apiResponse.data.data.userCardInformations.pbList.forEach(function(PB){
-	// 				if (query.game === PB.game.name) {
-	// 					if (!results[key]) {
-	// 						results[key] = {
-	// 							score: null,
-	// 							time: null,
-	// 						};
-	// 					}
-	//
-	// 					if (!results[key].score || (PB.score && (PB.score < results[key].score))) {
-	// 						results[key] = {
-	// 							score: PB.score ? PB.score : 0,
-	// 							time: PB.time
-	// 						}
-	// 					}
-	// 				}
-	// 			})
-	// 		}
-	//
-	// 		fetchPbAggregatedListReplicant.value = results;
-	// 	} catch (error) {
-	// 		nodecg.log.error(error);
-	// 	}
-	// });
 
 	function aggregateGameInfos(query, games, gameResult) {
 		games.forEach(function(game){
@@ -193,6 +186,10 @@ module.exports = function (nodecg) {
 
 		return gameResult;
 	}
+
+	/**
+	 * Livesplit library
+	 */
 
 	const livesplitConnection = nodecg.Replicant('livesplitConnected', {defaultValue: false, persistent: false});
 	var lastData;

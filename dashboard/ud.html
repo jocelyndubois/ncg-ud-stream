@@ -41,8 +41,8 @@
 			<label for="lightDarkBox" class="form-label">Light/Dark</label>
 			</br>
 			<label class="switch">
-				<input type="checkbox" id="lightDarkBox">
-				<span class="slider round"></span>
+				<input type="checkbox" id="lightDarkBox" />
+				<span id="slider" class="slider round"></span>
 			</label>
 		</div>
 		<div class="col-6">
@@ -117,14 +117,20 @@
 			<h4>Display PB and category:</h4>
 			<a class="btn btn-primary" id="sendPB">SEND</a>
 			<a class="btn btn-danger" id="hidePB">HIDE</a>
+			<h4>Card:</h4>
+			<a class="btn btn-primary" id="showCard">SHOW</a>
+			<a class="btn btn-danger" id="hideCard">HIDE</a>
 		</div>
 		<div class="col-4">
 			<h4>Chrono</h4>
 			<label for="callLivesplit">Use Livesplit ?</label>
 			<input id="callLivesplit" type="checkbox" checked />
 			</br>
+			<label for="syncLivesplit">[EXPERIMENTAL] Sync ?</label>
+			<input id="syncLivesplit" type="checkbox" />
+			</br>
 			<label for="enableSound">Coundown sound ?</label>
-			<input id="enableSound" type="checkbox" checked />
+			<input id="enableSound" type="checkbox" />
 			</br>
 			<input type="number" class="form-control" id="delay" placeholder="delay"/>
 			</br>
@@ -161,6 +167,9 @@
 	const sendPB = document.querySelector('#sendPB');
 	const hidePB = document.querySelector('#hidePB');
 
+	const showCard = document.querySelector('#showCard');
+	const hideCard = document.querySelector('#hideCard');
+
 	const startPause = document.querySelector('#startPause');
 	const stop = document.querySelector('#stop');
 
@@ -196,17 +205,29 @@
 	const delay = document.querySelector('#delay');
 	const delaySound = document.querySelector('#enableSound');
 
-	let categoryChoice;
+	const syncLivesplit = document.querySelector('#syncLivesplit');
 
+	let categoryChoice;
+	let livesplitStatus = false;
 
 	livesplitConnection.on('change', (connectionStatus) => {
 		if (connectionStatus) {
+			if (syncReplicant.value) {
+				syncLivesplit.checked = true;
+			}
+			syncLivesplit.disabled = false;
+
 			callLivesplit.checked = true;
 			callLivesplit.disabled = false;
 		} else {
+			syncLivesplit.checked = false;
+			syncLivesplit.disabled = true;
+
 			callLivesplit.checked = false;
 			callLivesplit.disabled = true;
 		}
+
+		livesplitStatus = connectionStatus;
 	});
 
 	let flip = true,
@@ -216,6 +237,67 @@
 
 	$(document).ready(function () {
 		getCategoryStatus();
+
+		//[DELAY STORAGE]
+		delayReplicant.on('change', () => {
+			delay.value = delayReplicant.value;
+		});
+
+		delay.onchange = () => {
+			delayReplicant.value = delay.value;
+		};
+
+		//[SOUND STORAGE]
+		soundReplicant.on('change', () => {
+			if (soundReplicant.value) {
+				delaySound.checked = true;
+			} else {
+				delaySound.checked = false;
+			}
+		});
+		delaySound.onchange = () => {
+			soundReplicant.value = delaySound.checked;
+		};
+
+		//[SYNC LIVESPLIT]
+		syncReplicant.on('change', () => {
+			if (syncReplicant.value && livesplitStatus) {
+				syncLivesplit.checked = true;
+			} else {
+				syncLivesplit.checked = false;
+			}
+		});
+		syncLivesplit.onchange = () => {
+			syncReplicant.value = syncLivesplit.checked;
+		};
+
+		//[LIGHT/DARK STORAGE]
+		lightDarkReplicant.on('change', () => {
+			if (lightDarkReplicant.value && !lightDarkBox.checked) {
+				lightDarkBox.click();
+			}
+		});
+		lightDarkBox.onchange = () => {
+			getCategoryStatus();
+
+			if ('light' === categoryChoice) {
+				categoryDivLight.classList.remove('hidden');
+				PBDivLight.classList.remove('hidden');
+
+				categoryDivDark.classList.add('hidden');
+				PBDivDark.classList.add('hidden');
+			} else {
+				categoryDivLight.classList.add('hidden');
+				PBDivLight.classList.add('hidden');
+
+				categoryDivDark.classList.remove('hidden');
+				PBDivDark.classList.remove('hidden');
+			}
+
+			sendPb();
+
+			lightDarkReplicant.value = lightDarkBox.checked;
+		}
 
 		fetchGamesButton.onclick = () => {
 			nodecg.sendMessage(
@@ -314,7 +396,7 @@
 		sendPB.onclick = () => {
 			let category = '';
 			let score = 0;
-			let time = '99:99:99';
+			let time = '';
 			if ('light' === categoryChoice) {
 				category = gameCategoryLight.value;
 				score = parseInt(PbLightScore.value);
@@ -341,6 +423,22 @@
 		hidePB.onclick = () => {
 			nodecg.sendMessage(
 				'hidePB'
+			);
+		};
+
+		//[CARD]
+		showCard.onclick = () => {
+			nodecg.sendMessage(
+				'showCard',
+				{
+					runner: runnerName.value,
+					season: seasonInput.value,
+				}
+			);
+		};
+		hideCard.onclick = () => {
+			nodecg.sendMessage(
+				'hideCard'
 			);
 		};
 
@@ -429,6 +527,8 @@
 			gameMidTimeDark.dataset.seconds = infos.dark.middleTime;
 			gameFewTimeDark.value = new Date(infos.dark.fewestTime * 1000).toISOString().substr(11, 8);
 			gameFewTimeDark.dataset.seconds = infos.dark.fewestTime;
+
+			sendPb();
 		});
 
 		fetchPbsReplicant.on('change', (PB) => {
@@ -437,7 +537,7 @@
 			}
 
 			let lightScore = 0;
-			let lightTime = "99:99:99";
+			let lightTime = "";
 			if (PB.light && PB.light.score) {
 				lightScore = PB.light.score;
 				lightTime = new Date(PB.light.time * 1000).toISOString().substr(11, 8);
@@ -446,33 +546,24 @@
 			PbLightTime.value = lightTime;
 
 			let darkScore = 0;
-			let darkTime = "99:99:99";
+			let darkTime = "";
 			if (PB.dark && PB.dark.score) {
 				darkScore = PB.dark.score;
 				darkTime = new Date(PB.dark.time * 1000).toISOString().substr(11, 8);
 			}
 			PbDarkScore.value = darkScore;
 			PbDarkTime.value = darkTime;
+
+			sendPb();
 		});
-
-		lightDarkBox.onchange = () => {
-			getCategoryStatus();
-
-			if ('light' === categoryChoice) {
-				categoryDivLight.classList.remove('hidden');
-				PBDivLight.classList.remove('hidden');
-
-				categoryDivDark.classList.add('hidden');
-				PBDivDark.classList.add('hidden');
-			} else {
-				categoryDivLight.classList.add('hidden');
-				PBDivLight.classList.add('hidden');
-
-				categoryDivDark.classList.remove('hidden');
-				PBDivDark.classList.remove('hidden');
-			}
-		}
 	});
+
+	function sendPb(forced = false)
+	{
+		if (forced || autoSendReplicant.value) {
+			sendPB.onclick();
+		}
+	}
 
 	function getCategoryStatus()
 	{

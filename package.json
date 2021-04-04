@@ -1,6 +1,6 @@
 {
   "name": "ncg-ud-stream",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Ultime Décathlon personnal streaming companion",
   "main": "index.js",
   "scripts": {
@@ -24,9 +24,29 @@
         "width": 3,
         "file": "livesplit.html",
         "headerColor": "#525F78"
+      },
+      {
+        "name": "preview_chrono",
+        "title": "Preview Chrono",
+        "width": 2,
+        "file": "preview_chrono.html",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "Configurations",
+        "title": "Configurations",
+        "width": 5,
+        "file": "configurations.html",
+        "headerColor": "#525F78",
+        "workspace": "SETUP"
       }
     ],
     "graphics": [
+      {
+        "file": "card.html",
+        "width": 1920,
+        "height": 1080
+      },
       {
         "file": "player.html",
         "width": 1775,
