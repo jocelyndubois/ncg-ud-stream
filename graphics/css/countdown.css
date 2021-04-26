@@ -1,3 +1,4 @@
+@import url(fonts/global.css);
 html,
 body {
 	height: 100%;
@@ -27,7 +28,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: "Oswald", sans-serif;
+	font-family: "pixel", sans-serif;
 	font-weight: 400;
 	font-size: 25vmin;
 	border-radius: 50%;

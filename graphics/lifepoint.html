@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/games.css" />
+    <link rel="stylesheet" href="css/UD9.css" />
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      .container {
+        overflow: hidden;
+        height: 100%;
+        color: white;
+        padding: 50px;
+      }
+
+      .small {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em !important;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        margin-top: 0px;
+        transform: scale(1.2);
+      }
+
+      .gauge {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        margin-right: 30px;
+        border-radius: 30px;
+        padding-top: 15px;
+      }
+
+      .life {
+        height: 20px;
+        width: 80%;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .life.dead {
+        background-color: transparent;
+      }
+
+      .hk-color {
+        background-color: #32374d;
+      }
+
+      .swd2-color {
+        background-color: #be6600;
+      }
+
+      .mintroid-color {
+        background-color: #70b096;
+      }
+
+      .gng-color {
+        background-color: #ffcc06;
+      }
+
+      .u-color {
+        background-color: #a28c8c;
+      }
+
+      .h-color {
+        background-color: #ca1111;
+      }
+
+      .tf-color {
+        background-color: #6676c8;
+      }
+
+      .ks-color {
+        background-color: #e896ec;
+      }
+
+      .smba-color {
+        background-color: #bd9c5c;
+      }
+
+      .v-color {
+        background-color: #ce3c99;
+      }
+    </style>
+
+    <script type="text/javascript" src="js/replicants.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="gauge hk-color">
+        <span
+          class="small glyph-game-hollow-knight hk-color"
+          id="game-1"
+        ></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+
+      <div class="gauge swd2-color">
+        <span class="small glyph-game-steamworld-dig-2 swd2-color" id="game-2">
+        </span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+
+      <div class="gauge mintroid-color">
+        <span
+          class="small glyph-game-mintroid mintroid-color"
+          id="game-3"
+        ></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+      <div class="gauge gng-color">
+        <span
+          class="small glyph-game-ghoulsn-ghosts gng-color"
+          id="game-4"
+        ></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+      <div class="gauge u-color">
+        <span class="small glyph-game-unworthy u-color" id="game-5"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+      <div class="gauge h-color">
+        <span class="small glyph-game-hamsterball h-color" id="game-6"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+      <div class="gauge tf-color">
+        <span
+          class="small glyph-game-trials-fusion tf-color"
+          id="game-7"
+        ></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+      <div class="gauge ks-color">
+        <span
+          class="small glyph-game-kururin-squash ks-color"
+          id="game-8"
+        ></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+
+      <div class="gauge smba-color">
+        <span
+          class="small glyph-game-super-monkey-ball-adventure smba-color"
+          id="game-9"
+        ></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+
+      <div class="gauge v-color">
+        <span class="small glyph-game-vectronom v-color" id="game-10"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+        <span class="life"></span>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    let life = document.querySelectorAll(".life");
+    for (var i = 0; i < life.length; i++) {
+      life[i].addEventListener("click", function (event) {
+        this.classList.toggle("dead");
+      });
+    }
+  </script>
+</html>
