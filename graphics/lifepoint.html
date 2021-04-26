@@ -43,12 +43,16 @@
         width: 80%;
         border-radius: 10px;
         margin-bottom: 5px;
-        background-color: rgba(255, 255, 255, 0.5);
-        border: 2px solid rgba(255, 255, 255, 0.5);
+        border: 2px solid rgba(255, 255, 255, 1);
+        transition: background-color 1s ease;
       }
 
-      .life.dead {
-        background-color: transparent;
+      .life.full {
+        background-color: rgba(255, 255, 255, 1);
+      }
+
+      .life.hide {
+        border-color: transparent;
       }
 
       .hk-color {
@@ -208,7 +212,17 @@
     let life = document.querySelectorAll(".life");
     for (var i = 0; i < life.length; i++) {
       life[i].addEventListener("click", function (event) {
-        this.classList.toggle("dead");
+        if (
+          !this.classList.contains("full") &&
+          !this.classList.contains("hide")
+        )
+          this.classList.add("full");
+        else if (this.classList.contains("full")) {
+          this.classList.remove("full");
+          this.classList.add("hide");
+        } else if (this.classList.contains("hide")) {
+          this.classList.remove("hide");
+        }
       });
     }
   </script>

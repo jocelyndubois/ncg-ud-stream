@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/countdownFighter.css" />
+  <body>
+	<div class="wrapper">
+		<div id="countdown"/>
+	</div>
+  </body>
+
+  <script>
+    const countdown = document.getElementById("countdown");
+
+    nodecg.listenFor("preTimer", async (infos) => {
+		countdown.classList.add("countdown");
+		setTimeout(() => {
+			countdown.classList.remove("countdown");
+		}, 3900);
+
+      if (infos.delaySound) {
+        const audio = new Audio("sound/countdown.mp3");
+        audio.play();
+      }
+    });
+  </script>
+</html>
