@@ -69,6 +69,7 @@ html,body {
 	top: 60px;
 	margin: 0 auto;
 	text-align: center;
+	font-family:Aldo the Apache;
 }
 
 .score {
@@ -80,11 +81,13 @@ html,body {
 
 #scoreLight {
 	color: white;
+	font-family:Aldo the Apache;
 }
 
 #scoreDark {
 	color: black;
-	/*-webkit-text-stroke: 2px white;*/
+	-webkit-text-stroke: 1px white;
+	font-family:Aldo the Apache;
 }
 
 .score.blink {
