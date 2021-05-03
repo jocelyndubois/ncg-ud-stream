@@ -9,7 +9,47 @@
       html,
       body {
         height: 100%;
+        --hk-color: #32374d;
+        --hk-color-light: #b1b6cc;
+        --hk-color-dark: #00041a;
+
+        --swd2-color: #be6600;
+        --swd2-color-light: #ffd29f;
+        --swd2-color-dark: #8b3300;
+
+        --mintroid-color: #70b096;
+        --mintroid-color-light: #c6dfd5;
+        --mintroid-color-dark: #3d7d63;
+
+        --gng-color: #ffcc06;
+        --gng-color-light: #fff5cd;
+        --gng-color-dark: #cc9900;
+
+        --u-color: #a28c8c;
+        --u-color-light: #ece8e8;
+        --u-color-dark: #6f5959;
+
+        --h-color: #ca1111;
+        --h-color-light: #efb8b8;
+        --h-color-dark: #970000;
+
+        --tf-color: #6676c8;
+        --tf-color-light: #d1d6ef;
+        --tf-color-dark: #334395;
+
+        --ks-color: #e896ec;
+        --ks-color-light: #f8e0f9;
+        --ks-color-dark: #b563b9;
+
+        --smba-color: #bd9c5c;
+        --smba-color-light: #ebe2ce;
+        --smba-color-dark: #8a6929;
+
+        --v-color: #ce3c99;
+        --v-color-light: #f5d8ea;
+        --v-color-dark: #9b0966;
       }
+
       .container {
         overflow: hidden;
         height: 100%;
@@ -17,7 +57,29 @@
         padding: 50px;
       }
 
-      .small {
+      .glyph-container {
+        /* background: linear-gradient(white 49%, black 51%); */
+        background: linear-gradient(
+          transparent,
+          transparent 23%,
+          white 24%,
+          white 45%,
+          black 55%,
+          black 76%,
+          transparent 77%,
+          transparent
+        );
+        margin-top: -30px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+      }
+
+      .glyph {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -26,25 +88,57 @@
         height: 50px;
         width: 50px;
         margin-top: 0px;
-        transform: scale(1.2);
+      }
+
+      .double-gauge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-right: 30px;
+      }
+
+      .gauge,
+      .gauge-reverse {
+        width: 40px;
+        display: flex;
+        align-items: center;
+        border-radius: 30px;
       }
 
       .gauge {
-        display: flex;
         flex-direction: column-reverse;
-        align-items: center;
-        margin-right: 30px;
-        border-radius: 30px;
+        padding-bottom: 30px;
         padding-top: 15px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border: 3px solid white;
+      }
+
+      .gauge-reverse {
+        flex-direction: column;
+        padding-bottom: 15px;
+        padding-top: 30px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        margin-top: -30px;
+        border: 3px solid black;
       }
 
       .life {
-        height: 20px;
+        height: 15px;
         width: 80%;
         border-radius: 10px;
-        margin-bottom: 5px;
         border: 2px solid rgba(255, 255, 255, 1);
         transition: background-color 1s ease;
+      }
+
+      .life-top {
+        margin-bottom: 5px;
+      }
+
+      .life-bottom {
+        margin-top: 5px;
       }
 
       .life.full {
@@ -56,43 +150,135 @@
       }
 
       .hk-color {
-        background-color: #32374d;
+        background-color: var(--hk-color);
+      }
+
+      .hk-light-gradient {
+        background: linear-gradient(var(--hk-color-light), var(--hk-color) 70%);
+      }
+
+      .hk-dark-gradient {
+        background: linear-gradient(var(--hk-color) 30%, #050505);
       }
 
       .swd2-color {
-        background-color: #be6600;
+        background-color: var(--swd2-color);
+      }
+
+      .swd2-light-gradient {
+        background: linear-gradient(
+          var(--swd2-color-light),
+          var(--swd2-color) 70%
+        );
+      }
+
+      .swd2-dark-gradient {
+        background: linear-gradient(var(--swd2-color) 30%, #050505);
       }
 
       .mintroid-color {
-        background-color: #70b096;
+        background-color: var(--mintroid-color);
+      }
+
+      .mintroid-dark-gradient {
+        background: linear-gradient(var(--mintroid-color) 30%, #050505);
+      }
+
+      .mintroid-light-gradient {
+        background: linear-gradient(
+          var(--mintroid-color-light),
+          var(--mintroid-color) 70%
+        );
       }
 
       .gng-color {
-        background-color: #ffcc06;
+        background-color: var(--gng-color);
+      }
+
+      .gng-dark-gradient {
+        background: linear-gradient(var(--gng-color) 30%, #050505);
+      }
+
+      .gng-light-gradient {
+        background: linear-gradient(
+          var(--gng-color-light),
+          var(--gng-color) 70%
+        );
       }
 
       .u-color {
-        background-color: #a28c8c;
+        background-color: var(--u-color);
+      }
+
+      .u-dark-gradient {
+        background: linear-gradient(var(--u-color) 30%, #050505);
+      }
+
+      .u-light-gradient {
+        background: linear-gradient(var(--u-color-light), var(--u-color) 70%);
       }
 
       .h-color {
-        background-color: #ca1111;
+        background-color: var(--h-color);
+      }
+
+      .h-dark-gradient {
+        background: linear-gradient(var(--h-color) 30%, #050505);
+      }
+
+      .h-light-gradient {
+        background: linear-gradient(var(--h-color-light), var(--h-color) 70%);
       }
 
       .tf-color {
-        background-color: #6676c8;
+        background-color: var(--tf-color);
+      }
+
+      .tf-dark-gradient {
+        background: linear-gradient(var(--tf-color) 30%, #050505);
+      }
+
+      .tf-light-gradient {
+        background: linear-gradient(var(--tf-color-light), var(--tf-color) 70%);
       }
 
       .ks-color {
-        background-color: #e896ec;
+        background-color: var(--ks-color);
+      }
+
+      .ks-dark-gradient {
+        background: linear-gradient(var(--ks-color) 30%, #050505);
+      }
+
+      .ks-light-gradient {
+        background: linear-gradient(var(--ks-color-light), var(--ks-color) 70%);
       }
 
       .smba-color {
-        background-color: #bd9c5c;
+        background-color: var(--smba-color);
+      }
+
+      .smba-dark-gradient {
+        background: linear-gradient(var(--smba-color) 30%, #050505);
+      }
+
+      .smba-light-gradient {
+        background: linear-gradient(
+          var(--smba-color-light),
+          var(--smba-color) 70%
+        );
       }
 
       .v-color {
-        background-color: #ce3c99;
+        background-color: var(--v-color);
+      }
+
+      .v-dark-gradient {
+        background: linear-gradient(var(--v-color) 30%, #050505);
+      }
+
+      .v-light-gradient {
+        background: linear-gradient(var(--v-color-light), var(--v-color) 70%);
       }
     </style>
 
@@ -102,126 +288,246 @@
   </head>
   <body>
     <div class="container">
-      <div class="gauge hk-color">
-        <span
-          class="small glyph-game-hollow-knight hk-color"
-          id="game-1"
-        ></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
+      <!-- HOLLOW KNIGHT -->
+      <div class="double-gauge">
+        <div class="gauge hk-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div
+            class="glyph glyph-game-hollow-knight hk-color"
+            id="game-1"
+          ></div>
+        </div>
+        <div class="gauge-reverse hk-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
+      </div>
+      <!-- SWD2 -->
+      <div class="double-gauge">
+        <div class="gauge swd2-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div
+            class="glyph glyph-game-steamworld-dig-2 swd2-color"
+            id="game-1"
+          ></div>
+        </div>
+        <div class="gauge-reverse swd2-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
       </div>
 
-      <div class="gauge swd2-color">
-        <span class="small glyph-game-steamworld-dig-2 swd2-color" id="game-2">
-        </span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
+      <!-- MINTROID -->
+      <div class="double-gauge">
+        <div class="gauge mintroid-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div
+            class="glyph glyph-game-mintroid mintroid-color"
+            id="game-1"
+          ></div>
+        </div>
+        <div class="gauge-reverse mintroid-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
       </div>
 
-      <div class="gauge mintroid-color">
-        <span
-          class="small glyph-game-mintroid mintroid-color"
-          id="game-3"
-        ></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-      </div>
-      <div class="gauge gng-color">
-        <span
-          class="small glyph-game-ghoulsn-ghosts gng-color"
-          id="game-4"
-        ></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-      </div>
-      <div class="gauge u-color">
-        <span class="small glyph-game-unworthy u-color" id="game-5"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-      </div>
-      <div class="gauge h-color">
-        <span class="small glyph-game-hamsterball h-color" id="game-6"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-      </div>
-      <div class="gauge tf-color">
-        <span
-          class="small glyph-game-trials-fusion tf-color"
-          id="game-7"
-        ></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-      </div>
-      <div class="gauge ks-color">
-        <span
-          class="small glyph-game-kururin-squash ks-color"
-          id="game-8"
-        ></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
+      <!-- GNG -->
+      <div class="double-gauge">
+        <div class="gauge gng-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div
+            class="glyph glyph-game-ghoulsn-ghosts gng-color"
+            id="game-1"
+          ></div>
+        </div>
+        <div class="gauge-reverse gng-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
       </div>
 
-      <div class="gauge smba-color">
-        <span
-          class="small glyph-game-super-monkey-ball-adventure smba-color"
-          id="game-9"
-        ></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
+      <div class="double-gauge">
+        <div class="gauge u-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div class="glyph glyph-game-unworthy u-color" id="game-1"></div>
+        </div>
+        <div class="gauge-reverse u-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
       </div>
 
-      <div class="gauge v-color">
-        <span class="small glyph-game-vectronom v-color" id="game-10"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
-        <span class="life"></span>
+      <div class="double-gauge">
+        <div class="gauge h-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <span class="glyph glyph-game-hamsterball h-color" id="game-1"></span>
+        </div>
+        <div class="gauge-reverse h-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
+      </div>
+
+      <div class="double-gauge">
+        <div class="gauge tf-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div
+            class="glyph glyph-game-trials-fusion tf-color"
+            id="game-1"
+          ></div>
+        </div>
+        <div class="gauge-reverse tf-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
+      </div>
+
+      <div class="double-gauge">
+        <div class="gauge ks-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div
+            class="glyph glyph-game-kururin-squash ks-color"
+            id="game-1"
+          ></div>
+        </div>
+        <div class="gauge-reverse ks-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
+      </div>
+
+      <div class="double-gauge">
+        <div class="gauge smba-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div
+            class="glyph glyph-game-super-monkey-ball-adventure smba-color"
+            id="game-1"
+          ></div>
+        </div>
+        <div class="gauge-reverse smba-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
+      </div>
+
+      <div class="double-gauge">
+        <div class="gauge v-color">
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+          <span class="life life-top"></span>
+        </div>
+        <div class="glyph-container">
+          <div class="glyph glyph-game-vectronom v-color" id="game-1"></div>
+        </div>
+        <div class="gauge-reverse v-dark-gradient">
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+          <span class="life life-bottom"></span>
+        </div>
       </div>
     </div>
   </body>
 
   <script>
-    let life = document.querySelectorAll(".life");
+    let life = document.querySelectorAll('.life');
     for (var i = 0; i < life.length; i++) {
-      life[i].addEventListener("click", function (event) {
+      life[i].addEventListener('click', function (event) {
         if (
-          !this.classList.contains("full") &&
-          !this.classList.contains("hide")
+          !this.classList.contains('full') &&
+          !this.classList.contains('hide')
         )
-          this.classList.add("full");
-        else if (this.classList.contains("full")) {
-          this.classList.remove("full");
-          this.classList.add("hide");
-        } else if (this.classList.contains("hide")) {
-          this.classList.remove("hide");
+          this.classList.add('full');
+        else if (this.classList.contains('full')) {
+          this.classList.remove('full');
+          this.classList.add('hide');
+        } else if (this.classList.contains('hide')) {
+          this.classList.remove('hide');
         }
       });
     }
