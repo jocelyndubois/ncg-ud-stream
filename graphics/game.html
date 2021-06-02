@@ -3,10 +3,16 @@
 <head>
 	<link rel="stylesheet" href="css/global.css">
 	<link rel="stylesheet" href="css/game.css">
+
+	<script type="text/javascript" src="js/replicants.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
 </head>
 <body>
 <div class="container">
 	<div id="gameInfos">
+			<span id="glyphSpan">
+				<span id="game-glyph"></span>
+			</span>
 			<span id="gameSvg">
 				<svg id="svgDisplay" viewBox="0,0,1000,1000" height="300" width="300">
 					<path id="gameSvgPath" d=""  fill="#FFFFFF"/>
@@ -19,14 +25,14 @@
 </body>
 
 <script>
-	const svgDisplay = document.querySelector('#svgDisplay');
-	const gameSvgPath = document.querySelector('#gameSvgPath');
+	const glyph = document.querySelector('#game-glyph');
 	const gameName = document.querySelector('#gameName');
 	const gameCategory = document.querySelector('#gameCategory');
 
 	nodecg.listenFor('showPB', (infos) => {
-		// svgDisplay.setAttribute('viewBox', '0,0,' + infos.glyph.width + ',' + infos.glyph.width);
-		gameSvgPath.setAttribute('d', infos.glyph.path);
+		glyph.setAttribute('class', '');
+		glyph.classList.add('glyph-game-' + string_to_slug(infos.game));
+
 		gameName.innerHTML = infos.game;
 		gameCategory.innerHTML = infos.category;
 	});

@@ -16,21 +16,24 @@
         "title": "UD",
         "width": 6,
         "file": "ud.html",
-        "headerColor": "#525F78"
+        "headerColor": "#525F78",
+        "workspace": "UD"
       },
       {
         "name": "LiveSplit",
         "title": "LiveSplit",
         "width": 3,
         "file": "livesplit.html",
-        "headerColor": "#525F78"
+        "headerColor": "#525F78",
+        "workspace": "UD"
       },
       {
         "name": "preview_chrono",
         "title": "Preview Chrono",
         "width": 2,
         "file": "preview_chrono.html",
-        "headerColor": "#525F78"
+        "headerColor": "#525F78",
+        "workspace": "UD"
       },
       {
         "name": "Configurations",
@@ -74,6 +77,16 @@
       },
       {
         "file": "spotify.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "spotify-round.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "spotify-text.html",
         "width": 1920,
         "height": 1080
       },
